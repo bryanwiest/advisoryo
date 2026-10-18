@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/logo/advisoryo-dark.svg">
+    <img src="public/logo/advisoryo.svg" alt="advisoryo" width="320">
+  </picture>
+</p>
+
 # advisoryo
 
 > Plattform, auf der Hersteller ihre Security Advisories im Format **CSAF 2.0** veröffentlichen und auf der jede Person sie durchsuchen kann.
@@ -53,7 +60,7 @@ Die Rechte werden im Backend geprüft: ohne Anmeldung `401`, ohne passende Rolle
 | Frontend und Backend | Next.js (App Router) mit TypeScript | Ein Projekt für Oberfläche und API; öffentliche Advisory-Seiten können serverseitig gerendert werden und sind damit schnell und auffindbar |
 | API | Next.js Route Handlers unter `/api/...` | Eigene REST-Endpunkte mit Ressourcen-URLs, Methoden und Statuscodes |
 | Validierung | [Ajv](https://ajv.js.org/) mit dem offiziellen CSAF-2.0-Schema, Zod für API-Eingaben | Das Schema des Standards lässt sich direkt verwenden |
-| Datenbank | PostgreSQL über Prisma, lokal per Docker Compose | Relationales Modell für Organisationen, Rollen und Advisories; JSONB für das Originaldokument; Volltextsuche eingebaut |
+| Datenbank | PostgreSQL über Prisma, lokal per Docker Compose | Relationales Modell für Organisationen, Rollen und Advisories; JSONB für das Originaldokument; Volltextsuche eingebaut. SQLite (schwächer bei JSON und Suche) und MongoDB (umständlich für Rollen und Beziehungen) wurden verworfen |
 | Auth | Session-Cookie (httpOnly, SameSite) mit gehashten Passwörtern (argon2) | Einfacher gegen XSS und CSRF abzusichern als ein JWT im LocalStorage |
 
 Die Entscheidungen werden in der Ausarbeitung mit Alternativen begründet, z. B. Next.js gegenüber Vite-SPA mit separatem Express-Backend, PostgreSQL gegenüber SQLite oder MongoDB.
