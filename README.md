@@ -7,145 +7,163 @@
 
 # advisoryo
 
-> Plattform, auf der Hersteller ihre Security Advisories im Format **CSAF 2.0** veröffentlichen und auf der jede Person sie durchsuchen kann.
+> A platform where manufacturers publish their security advisories in the **CSAF 2.0** format and where anyone can search them.
 
 **Name:** Bryan Wiest
 **Repository:** https://github.com/bryanwiest/advisoryo
-**Kurs:** Web-Applikationen, WS 2026/27, HTWG Konstanz
+**Course:** Web Applications (Web-Applikationen), winter term 2026/27, HTWG Konstanz
 
-## Projektidee
+## Project idea
 
-advisoryo ist eine Web-Plattform, auf der Hersteller ihre Security Advisories als CSAF-2.0-Dokumente hochladen. Die Plattform validiert jedes Dokument gegen das offizielle Schema, extrahiert die wichtigsten Angaben (betroffene Produkte, CVEs, Schweregrad, Status) und macht sie öffentlich durchsuchbar. Zielgruppe sind Hersteller von Produkten mit digitalen Elementen, die nach dem EU Cyber Resilience Act (CRA) Schwachstellen und Sicherheitsupdates kommunizieren müssen, aber kein eigenes CSAF-Portal betreiben, sowie Betreiber und Security-Teams, die wissen wollen, ob ihre Produkte betroffen sind.
+advisoryo is a web platform where manufacturers upload their security advisories as CSAF 2.0 documents. The platform validates every document against the official schema, extracts the key information (affected products, CVEs, severity, status) and makes it publicly searchable. The target audience is manufacturers of products with digital elements who have to communicate vulnerabilities and security updates under the EU Cyber Resilience Act (CRA) but do not run their own CSAF portal, as well as operators and security teams who want to know whether their products are affected.
 
-## Hintergrund: CSAF
+## Background: CSAF
 
-Das [Common Security Advisory Framework (CSAF) 2.0](https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html) ist ein OASIS-Standard für maschinenlesbare Security Advisories im JSON-Format und wird vom BSI empfohlen. Ein Dokument hat ein Profil (z. B. `csaf_security_advisory`, `csaf_vex`, `csaf_informational_advisory`), einen Produktbaum (`product_tree`) und eine Liste von Schwachstellen (`vulnerabilities`) mit Produktstatus wie `known_affected`, `fixed` oder `known_not_affected`. Über `document.tracking` werden Revisionen versioniert.
+The [Common Security Advisory Framework (CSAF) 2.0](https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html) is an OASIS standard for machine-readable security advisories in JSON and is recommended by the German Federal Office for Information Security (BSI). A document has a profile (e.g. `csaf_security_advisory`, `csaf_vex`, `csaf_informational_advisory`), a product tree (`product_tree`) and a list of vulnerabilities (`vulnerabilities`) with product statuses such as `known_affected`, `fixed` or `known_not_affected`. Revisions are versioned via `document.tracking`.
 
-advisoryo speichert das **Originaldokument unverändert** und zusätzlich ein **normalisiertes Datenmodell**, über das gesucht und angezeigt wird.
+advisoryo stores the **original document unchanged** and additionally a **normalized data model** that is used for search and display.
 
-## Rollen
+## Related tools: Secvisogram and BSI CSAF tooling
 
-Hersteller sind als **Organisationen** auf der Plattform. Das können Softwareanbieter sein, aber auch Hersteller von Hardware, IoT-Geräten oder Maschinen.
+[Secvisogram](https://github.com/secvisogram/secvisogram) is an open-source, browser-based editor for CSAF 2.0 documents developed on behalf of the BSI. It lets authors create, edit and validate advisories through a form or JSON editor and export them as CSAF JSON. A hosted instance is available at [secvisogram.github.io](https://secvisogram.github.io/).
 
-| Rolle | Bereich | Rechte |
+Secvisogram and advisoryo complement each other:
+
+| | Secvisogram | advisoryo |
 |---|---|---|
-| Gast (nicht angemeldet) | öffentlich | Advisories suchen, ansehen und als JSON herunterladen |
-| Publisher | eigene Organisation | Advisories hochladen, neue Revisionen einspielen, eigene Advisories zurückziehen |
-| Organisationsverwalter | eigene Organisation | Wie Publisher; zusätzlich Publisher der eigenen Organisation einladen, sperren und entfernen sowie Organisationsprofil pflegen |
-| Plattform-Admin | gesamte Plattform | Organisationen freischalten und sperren, Organisationsverwalter festlegen, Advisories bei Missbrauch sperren |
+| Purpose | **Authoring** a single CSAF document | **Publishing and finding** many CSAF documents |
+| Users | The author of an advisory | Manufacturers (organizations with publishers) and the public |
+| Storage | Local, in the browser (or via an optional backend) | Central database with organizations, roles and revisions |
+| Search across advisories | No | Yes (CVE, product, manufacturer, severity, status) |
 
-Die Rechte werden im Backend geprüft: ohne Anmeldung `401`, ohne passende Rolle oder bei fremder Organisation `403`.
+The intended workflow is: a publisher writes the advisory in Secvisogram, exports the JSON and uploads it to advisoryo, which validates and publishes it. For validation beyond the JSON schema, advisoryo can reuse [`@secvisogram/csaf-validator-lib`](https://github.com/secvisogram/csaf-validator-lib), the JavaScript library behind Secvisogram's checks, which implements the mandatory tests from section 6.1 of the CSAF specification. Using the same checks as Secvisogram means a document that is valid there is also accepted by advisoryo.
 
-## Funktionen
+The BSI also maintains [CSAF tools in Go](https://github.com/gocsaf/csaf) (e.g. `csaf_provider`, `csaf_checker`, `csaf_downloader`) for running a CSAF provider on your own server. advisoryo targets manufacturers who do not want to operate such infrastructure themselves.
 
-**Kern (fest eingeplant)**
+## Roles
 
-- **Upload** eines CSAF-Dokuments per Formular mit Größenlimit
-- **Validierung** gegen das offizielle CSAF-2.0-JSON-Schema mit verständlicher Fehlerliste
-- **Öffentliche Übersicht und Suche** nach CVE-ID, Produkt, Hersteller, Schweregrad (CVSS) und Status
-- **Detailansicht** mit betroffenen Produkten, Schwachstellen, Maßnahmen (`remediations`) und Download des Originals
-- **Organisationsverwaltung**: Organisationsverwalter laden Publisher ein und verwalten sie
+Manufacturers are represented on the platform as **organizations**. They can be software vendors, but also manufacturers of hardware, IoT devices or machinery.
 
-**Erweiterungen (je nach Umfang)**
-
-- Versionierung über `document.tracking` mit Revisionshistorie und Diff-Ansicht
-- Zusätzliche CSAF-Prüfungen über das Schema hinaus (Mandatory Tests aus Kapitel 6.1 der Spezifikation)
-- Watchlist: Produkte abonnieren und neue betroffene Advisories sehen
-- Öffentliche Verzeichnisse nach CSAF-Spezifikation (`provider-metadata.json`, ROLIE-Feed), damit andere CSAF-Werkzeuge die Advisories automatisch abrufen können
-
-## Technologie-Stack (geplant)
-
-| Schicht | Technologie | Begründung |
+| Role | Scope | Permissions |
 |---|---|---|
-| Frontend und Backend | Next.js (App Router) mit TypeScript | Ein Projekt für Oberfläche und API; öffentliche Advisory-Seiten können serverseitig gerendert werden und sind damit schnell und auffindbar |
-| API | Next.js Route Handlers unter `/api/...` | Eigene REST-Endpunkte mit Ressourcen-URLs, Methoden und Statuscodes |
-| Validierung | [Ajv](https://ajv.js.org/) mit dem offiziellen CSAF-2.0-Schema, Zod für API-Eingaben | Das Schema des Standards lässt sich direkt verwenden |
-| Datenbank | PostgreSQL über Prisma, lokal per Docker Compose | Relationales Modell für Organisationen, Rollen und Advisories; JSONB für das Originaldokument; Volltextsuche eingebaut. SQLite (schwächer bei JSON und Suche) und MongoDB (umständlich für Rollen und Beziehungen) wurden verworfen |
-| Auth | Session-Cookie (httpOnly, SameSite) mit gehashten Passwörtern (argon2) | Einfacher gegen XSS und CSRF abzusichern als ein JWT im LocalStorage |
+| Guest (not signed in) | public | Search, view and download advisories as JSON |
+| Publisher | own organization | Upload advisories, add new revisions, withdraw own advisories |
+| Organization manager | own organization | Same as publisher; additionally invite, suspend and remove publishers of their organization and maintain the organization profile |
+| Platform admin | entire platform | Approve and suspend organizations, assign organization managers, block advisories in case of abuse |
 
-Die Entscheidungen werden in der Ausarbeitung mit Alternativen begründet, z. B. Next.js gegenüber Vite-SPA mit separatem Express-Backend, PostgreSQL gegenüber SQLite oder MongoDB.
+Permissions are checked in the backend: `401` without a session, `403` without the required role or for another organization.
 
-## Datenmodell (Entwurf)
+## Features
+
+**Core (committed)**
+
+- **Upload** of a CSAF document via a form, with a size limit
+- **Validation** against the official CSAF 2.0 JSON schema with a readable list of errors
+- **Public overview and search** by CVE ID, product, manufacturer, severity (CVSS) and status
+- **Detail view** with affected products, vulnerabilities, remediations and download of the original document
+- **Organization management**: organization managers invite and manage publishers
+
+**Extensions (depending on scope)**
+
+- Versioning via `document.tracking` with revision history and a diff view
+- Additional CSAF checks beyond the schema (mandatory tests from section 6.1 of the specification, via `csaf-validator-lib`)
+- "Open in Secvisogram" for viewing or editing a published advisory in the BSI editor
+- Watchlist: subscribe to products and see new advisories that affect them
+- Public directories according to the CSAF specification (`provider-metadata.json`, ROLIE feed) so that other CSAF tools can fetch the advisories automatically
+
+## Technology stack (planned)
+
+| Layer | Technology | Rationale |
+|---|---|---|
+| Frontend and backend | Next.js (App Router) with TypeScript | One project for UI and API; public advisory pages can be rendered on the server, which makes them fast and indexable |
+| API | Next.js route handlers under `/api/...` | Own REST endpoints with resource URLs, proper methods and status codes |
+| Validation | [Ajv](https://ajv.js.org/) with the official CSAF 2.0 schema, `csaf-validator-lib` for spec tests, Zod for API input | The standard's schema and the BSI tooling can be used directly |
+| Database | PostgreSQL via Prisma, locally via Docker Compose | Relational model for organizations, roles and advisories; JSONB for the original document; built-in full-text search. SQLite (weaker for JSON and search) and MongoDB (awkward for roles and relations) were ruled out |
+| Auth | Session cookie (httpOnly, SameSite) with hashed passwords (argon2) | Easier to protect against XSS and CSRF than a JWT in localStorage |
+
+The decisions and the alternatives considered are discussed in the written report, e.g. Next.js versus a Vite SPA with a separate Express backend, and PostgreSQL versus SQLite or MongoDB.
+
+## Data model (draft)
 
 ```
-User ──< Membership (Rolle: PUBLISHER | ORG_MANAGER) >── Organization ──< Advisory ──< Revision
+User ──< Membership (role: PUBLISHER | ORG_MANAGER) >── Organization ──< Advisory ──< Revision
                                                                            │
-                                                                           ├──< Vulnerability (CVE, CVSS, Status)
-                                                                           └──< Product (Name, Version, CPE/PURL)
+                                                                           ├──< Vulnerability (CVE, CVSS, status)
+                                                                           └──< Product (name, version, CPE/PURL)
 ```
 
-`User` hat zusätzlich ein Flag für Plattform-Admins. `Revision` enthält das Originaldokument (JSONB), die `tracking.id`, die Versionsnummer und den Upload-Zeitpunkt.
+`User` additionally has a flag for platform admins. `Revision` holds the original document (JSONB), the `tracking.id`, the version number and the upload timestamp.
 
-## URL-Struktur
+## URL structure
 
-| Pfad | Inhalt |
+| Path | Content |
 |---|---|
-| `/` | Startseite mit Suche und neuesten Advisories |
-| `/advisories` | Liste mit Filtern |
-| `/advisories/:id` | Detailansicht eines Advisories |
-| `/organizations/:slug` | Öffentliches Profil eines Herstellers mit seinen Advisories |
-| `/upload` | Upload-Formular (Publisher) |
-| `/org` | Verwaltung der eigenen Organisation (Organisationsverwalter) |
-| `/login`, `/register` | Anmeldung und Registrierung |
-| `/admin` | Plattformverwaltung (Plattform-Admin) |
+| `/` | Home page with search and latest advisories |
+| `/advisories` | List with filters |
+| `/advisories/:id` | Advisory detail view |
+| `/organizations/:slug` | Public manufacturer profile with its advisories |
+| `/upload` | Upload form (publisher) |
+| `/org` | Management of the own organization (organization manager) |
+| `/login`, `/register` | Sign-in and registration |
+| `/admin` | Platform administration (platform admin) |
 
-REST-API (ab M3, Entwurf):
+REST API (from M3, draft):
 
-| Methode | Pfad | Beschreibung | Rolle |
+| Method | Path | Description | Role |
 |---|---|---|---|
-| GET | `/api/advisories?q=&cve=&severity=&org=` | Suchen und filtern | alle |
-| GET | `/api/advisories/:id` | Details inkl. Revisionen | alle |
-| GET | `/api/advisories/:id/raw` | Originaldokument (neueste Revision) | alle |
-| POST | `/api/advisories` | Neues Advisory hochladen | Publisher, Organisationsverwalter |
-| POST | `/api/advisories/:id/revisions` | Neue Revision einspielen | Publisher, Organisationsverwalter (eigene Org) |
-| DELETE | `/api/advisories/:id` | Zurückziehen bzw. sperren | Publisher (eigene Org), Plattform-Admin |
-| GET | `/api/organizations/:slug/members` | Mitglieder anzeigen | Organisationsverwalter (eigene Org) |
-| POST | `/api/organizations/:slug/members` | Publisher einladen | Organisationsverwalter (eigene Org) |
-| DELETE | `/api/organizations/:slug/members/:userId` | Publisher entfernen | Organisationsverwalter (eigene Org) |
-| PATCH | `/api/organizations/:slug` | Organisation freischalten oder sperren | Plattform-Admin |
-| POST | `/api/auth/register`, `/api/auth/login`, `/api/auth/logout` | Authentifizierung | – |
+| GET | `/api/advisories?q=&cve=&severity=&org=` | Search and filter | everyone |
+| GET | `/api/advisories/:id` | Details including revisions | everyone |
+| GET | `/api/advisories/:id/raw` | Original document (latest revision) | everyone |
+| POST | `/api/advisories` | Upload a new advisory | publisher, organization manager |
+| POST | `/api/advisories/:id/revisions` | Add a new revision | publisher, organization manager (own org) |
+| DELETE | `/api/advisories/:id` | Withdraw or block | publisher (own org), platform admin |
+| GET | `/api/organizations/:slug/members` | List members | organization manager (own org) |
+| POST | `/api/organizations/:slug/members` | Invite a publisher | organization manager (own org) |
+| DELETE | `/api/organizations/:slug/members/:userId` | Remove a publisher | organization manager (own org) |
+| PATCH | `/api/organizations/:slug` | Approve or suspend an organization | platform admin |
+| POST | `/api/auth/register`, `/api/auth/login`, `/api/auth/logout` | Authentication | – |
 
-## Kriterien-Zuordnung M1
+## M1 criteria mapping
 
-*Wird mit dem HTML/CSS-Prototyp ausgefüllt.*
+*To be filled in with the HTML/CSS prototype.*
 
-| Kriterium | Datei | Zeile / Hinweis |
+| Criterion | File | Line / note |
 |---|---|---|
-| Semantische HTML-Struktur | `index.html` | Z. … |
-| Formular mit Labels | `upload.html` | Z. … (Upload-Formular) |
-| Responsives Layout (Flexbox/Grid) | `styles.css` | Z. … |
-| Media Query | `styles.css` | Z. … |
-| URL-Struktur | `index.html`, `advisories.html`, `advisory.html`, `upload.html`, `login.html` | siehe Abschnitt URL-Struktur |
+| Semantic HTML structure | `index.html` | l. … |
+| Form with labels | `upload.html` | l. … (upload form) |
+| Responsive layout (Flexbox/Grid) | `styles.css` | l. … |
+| Media query | `styles.css` | l. … |
+| URL structure | `index.html`, `advisories.html`, `advisory.html`, `upload.html`, `login.html` | see section URL structure |
 
-## Meilensteine
+## Milestones
 
-| Meilenstein | Inhalt | Abgabe | Git-Tag |
+| Milestone | Content | Due | Git tag |
 |---|---|---|---|
-| M1 | Statischer HTML/CSS-Prototyp: Startseite, Liste, Detail, Upload, Login | 21.10.2026 | `Meilenstein 1` |
-| M2 | React/TypeScript-App mit Routing; Advisories aus lokalen CSAF-Beispieldateien | 18.11.2026 | `Meilenstein 2` |
-| M3 | API, PostgreSQL mit Prisma, Auth mit Rollen, Schema-Validierung, Security-Check | 13.01.2027 | `Meilenstein 3` |
-| M4 | Tests (Autorisierung, Validierung, Parser), Betrieb per Docker Compose, Demo-Video, Ausarbeitung | nach Vorlesungsende | `Meilenstein 4` |
+| M1 | Static HTML/CSS prototype: home, list, detail, upload, login | 2026-10-21 | `Meilenstein 1` |
+| M2 | React/TypeScript app with routing; advisories from local CSAF sample files | 2026-11-18 | `Meilenstein 2` |
+| M3 | API, PostgreSQL with Prisma, auth with roles, schema validation, security check | 2027-01-13 | `Meilenstein 3` |
+| M4 | Tests (authorization, validation, parser), deployment via Docker Compose, demo video, written report | after the lecture period | `Meilenstein 4` |
 
-## Sicherheit (Vorüberlegungen)
+## Security (initial considerations)
 
-Hochgeladene Dokumente sind fremde, nicht vertrauenswürdige Eingaben. Geplant sind deshalb:
+Uploaded documents are untrusted third-party input. Planned measures:
 
-- Strenges Größenlimit und reine JSON-Verarbeitung, keine Ausführung von Inhalten
-- Felder aus Advisories werden nur als Text ausgegeben (React-Escaping, kein `dangerouslySetInnerHTML`), Links nur mit `https:`
-- Prisma mit parametrisierten Queries gegen Injection
-- Session-Cookies mit `httpOnly`, `Secure`, `SameSite=Lax`; Prüfung des `Origin`-Headers bei schreibenden Anfragen gegen CSRF
-- Jede Rechteprüfung im Backend, inklusive der Zugehörigkeit zur Organisation
-- Secrets ausschließlich in `.env` (nicht im Repository), Vorlage in `.env.example`
+- Strict size limit and pure JSON processing, no execution of content
+- Fields from advisories are rendered as text only (React escaping, no `dangerouslySetInnerHTML`), links only with `https:`
+- Prisma with parameterized queries against injection
+- Session cookies with `httpOnly`, `Secure`, `SameSite=Lax`; `Origin` header check on state-changing requests against CSRF
+- Every permission check in the backend, including organization membership
+- Secrets only in `.env` (never committed), template in `.env.example`
 
-## Lokales Setup
+## Local setup
 
-*Folgt mit M2/M3.* Ziel: `docker compose up` startet Datenbank und App, `npm install && npm run dev` startet die Entwicklungsumgebung, alles in unter zehn Minuten.
+*Follows with M2/M3.* Goal: `docker compose up` starts the database and the app, `npm install && npm run dev` starts the development environment, all in under ten minutes.
 
-## Offene Punkte
+## Open points
 
-1. Abstimmen, ob Next.js für M2 statt der vorgegebenen Kombination aus Vite und React Router akzeptiert wird.
-2. Umfang der Erweiterungen nach M2 festlegen.
+1. Confirm whether Next.js is accepted for M2 instead of the required combination of Vite and React Router.
+2. Decide on the scope of the extensions after M2.
 
-## Lizenz
+## License
 
-Siehe [LICENSE](LICENSE).
+See [LICENSE](LICENSE).
