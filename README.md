@@ -141,6 +141,8 @@ advisoryo/
 ├── assets/
 │   ├── logo/           logo variants (light and dark)
 │   └── csaf/           example CSAF 2.0 document (download on the detail page)
+├── .well-known/
+│   └── security.txt    security contact (RFC 9116)
 ├── README.md
 └── LICENSE
 ```
