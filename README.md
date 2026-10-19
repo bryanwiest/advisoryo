@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="public/logo/advisoryo-dark.svg">
-    <img src="public/logo/advisoryo.svg" alt="advisoryo" width="320">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+    <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="320">
   </picture>
 </p>
 
@@ -127,19 +127,16 @@ REST API (from M3, draft):
 
 ```
 advisoryo/
-├── prototype/          M1: static HTML/CSS prototype, one file per URL
-│   ├── index.html      /  (home)
-│   └── css/
-│       ├── base.css        design tokens, reset, typography, buttons
-│       ├── layout.css      header, sections, footer
-│       └── components.css  search form, advisory cards, responsive rules
-├── public/
-│   └── logo/           logo variants (light and dark), later served by Next.js
+├── index.html          /  (home), one HTML file per URL
+├── css/
+│   ├── base.css        design tokens, reset, typography, buttons
+│   ├── layout.css      header, sections, footer
+│   └── components.css  search form, advisory cards, responsive rules
+├── assets/
+│   └── logo/           logo variants (light and dark)
 ├── README.md
 └── LICENSE
 ```
-
-From M2 on, the Next.js app lives next to the prototype (`src/app/`, `package.json`), and `public/` becomes its static asset folder. The prototype pages use the logos from `../public/logo/`, so they work when opened directly in the browser or served from the repository root.
 
 ## M1 criteria mapping
 
@@ -147,12 +144,12 @@ From M2 on, the Next.js app lives next to the prototype (`src/app/`, `package.js
 
 | Criterion | File | Line / note |
 |---|---|---|
-| Semantic HTML structure | `prototype/index.html` | l. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
-| Form with labels | `prototype/index.html` | l. 44–60 (search form, `label for` / `name`) |
-| Responsive layout (Flexbox) | `prototype/css/layout.css` | l. 10 (header), l. 72 (footer) |
-| Responsive layout (Grid) | `prototype/css/components.css` | l. 61 (advisory cards), l. 155 (steps) |
-| Media query | `prototype/css/components.css` | l. 211, l. 223, l. 234 |
-| URL structure | `prototype/*.html` | one file per path, see section URL structure |
+| Semantic HTML structure | `index.html` | l. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
+| Form with labels | `index.html` | l. 44–60 (search form, `label for` / `name`) |
+| Responsive layout (Flexbox) | `css/layout.css` | l. 10 (header), l. 72 (footer) |
+| Responsive layout (Grid) | `css/components.css` | l. 61 (advisory cards), l. 155 (steps) |
+| Media query | `css/components.css` | l. 211, l. 223, l. 234 |
+| URL structure | `*.html` | one file per path, see section URL structure |
 
 ## Milestones
 
