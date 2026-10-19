@@ -107,63 +107,6 @@ User ──< Membership (role: PUBLISHER | ORG_MANAGER) >── Organization ─
 | `/login`, `/register` | Sign-in and registration |
 | `/admin` | Platform administration (platform admin) |
 
-REST API (from M3, draft):
-
-| Method | Path | Description | Role |
-|---|---|---|---|
-| GET | `/api/advisories?q=&cve=&severity=&org=` | Search and filter | everyone |
-| GET | `/api/advisories/:id` | Details including revisions | everyone |
-| GET | `/api/advisories/:id/raw` | Original document (latest revision) | everyone |
-| POST | `/api/advisories` | Upload a new advisory | publisher, organization manager |
-| POST | `/api/advisories/:id/revisions` | Add a new revision | publisher, organization manager (own org) |
-| DELETE | `/api/advisories/:id` | Withdraw or block | publisher (own org), platform admin |
-| GET | `/api/organizations/:slug/members` | List members | organization manager (own org) |
-| POST | `/api/organizations/:slug/members` | Invite a publisher | organization manager (own org) |
-| DELETE | `/api/organizations/:slug/members/:userId` | Remove a publisher | organization manager (own org) |
-| PATCH | `/api/organizations/:slug` | Approve or suspend an organization | platform admin |
-| POST | `/api/auth/register`, `/api/auth/login`, `/api/auth/logout` | Authentication | – |
-
-## M1 criteria mapping
-
-*To be filled in with the HTML/CSS prototype.*
-
-| Criterion | File | Line / note |
-|---|---|---|
-| Semantic HTML structure | `index.html` | l. … |
-| Form with labels | `upload.html` | l. … (upload form) |
-| Responsive layout (Flexbox/Grid) | `styles.css` | l. … |
-| Media query | `styles.css` | l. … |
-| URL structure | `index.html`, `advisories.html`, `advisory.html`, `upload.html`, `login.html` | see section URL structure |
-
-## Milestones
-
-| Milestone | Content | Due | Git tag |
-|---|---|---|---|
-| M1 | Static HTML/CSS prototype: home, list, detail, upload, login | 2026-10-21 | `Meilenstein 1` |
-| M2 | React/TypeScript app with routing; advisories from local CSAF sample files | 2026-11-18 | `Meilenstein 2` |
-| M3 | API, PostgreSQL with Prisma, auth with roles, schema validation, security check | 2027-01-13 | `Meilenstein 3` |
-| M4 | Tests (authorization, validation, parser), deployment via Docker Compose, demo video, written report | after the lecture period | `Meilenstein 4` |
-
-## Security (initial considerations)
-
-Uploaded documents are untrusted third-party input. Planned measures:
-
-- Strict size limit and pure JSON processing, no execution of content
-- Fields from advisories are rendered as text only (React escaping, no `dangerouslySetInnerHTML`), links only with `https:`
-- Prisma with parameterized queries against injection
-- Session cookies with `httpOnly`, `Secure`, `SameSite=Lax`; `Origin` header check on state-changing requests against CSRF
-- Every permission check in the backend, including organization membership
-- Secrets only in `.env` (never committed), template in `.env.example`
-
-## Local setup
-
-*Follows with M2/M3.* Goal: `docker compose up` starts the database and the app, `npm install && npm run dev` starts the development environment, all in under ten minutes.
-
-## Open points
-
-1. Confirm whether Next.js is accepted for M2 instead of the required combination of Vite and React Router.
-2. Decide on the scope of the extensions after M2.
-
 ## License
 
 See [LICENSE](LICENSE).
