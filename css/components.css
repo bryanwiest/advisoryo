@@ -559,3 +559,53 @@ legend {
   display: block;
   color: var(--text);
 }
+
+/* ---------- Upload ---------- */
+.form-card {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.field input[type="file"] {
+  padding: 0.5rem;
+}
+
+.choice input[type="checkbox"]:required + label::after {
+  content: " *";
+  color: var(--critical);
+}
+
+.validation {
+  margin-top: 2.5rem;
+}
+
+.validation h2 {
+  font-size: 1.1rem;
+}
+
+.validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.validation-list li {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--critical);
+  border-radius: 8px;
+}
+
+.validation-list code {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
