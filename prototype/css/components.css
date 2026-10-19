@@ -1,170 +1,4 @@
-/* advisoryo – M1 static prototype styles */
-
-/* ---------- Design tokens ---------- */
-:root {
-  --navy: #0f2a4a;
-  --teal: #14b8a6;
-  --teal-dark: #0f766e;
-
-  --bg: #f8fafc;
-  --surface: #ffffff;
-  --text: #0f172a;
-  --text-muted: #475569;
-  --border: #e2e8f0;
-  --accent: var(--teal-dark);
-  --hero-bg: var(--navy);
-  --hero-text: #f1f5f9;
-
-  --critical: #b91c1c;
-  --high: #c2410c;
-  --medium: #a16207;
-  --low: #15803d;
-
-  --radius: 10px;
-  --space: 1rem;
-  --max-width: 72rem;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  color-scheme: light dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0b1220;
-    --surface: #111b2e;
-    --text: #e2e8f0;
-    --text-muted: #94a3b8;
-    --border: #1e2a40;
-    --accent: #2dd4bf;
-    --hero-bg: #0f2a4a;
-  }
-}
-
-/* ---------- Base ---------- */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.6;
-}
-
-h1,
-h2,
-h3 {
-  line-height: 1.25;
-  margin: 0 0 0.5em;
-}
-
-a {
-  color: var(--accent);
-}
-
-a:hover {
-  text-decoration-thickness: 2px;
-}
-
-:focus-visible {
-  outline: 3px solid var(--teal);
-  outline-offset: 2px;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-ul,
-ol {
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 var(--space);
-}
-
-.skip-link {
-  position: absolute;
-  left: -999px;
-}
-
-.skip-link:focus {
-  left: var(--space);
-  top: var(--space);
-  background: var(--surface);
-  padding: 0.5rem 1rem;
-  z-index: 10;
-}
-
-/* ---------- Buttons ---------- */
-.button {
-  display: inline-block;
-  padding: 0.65rem 1.4rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: var(--teal);
-  color: var(--navy);
-  font: inherit;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: #2dd4bf;
-}
-
-.button-small {
-  padding: 0.35rem 0.9rem;
-}
-
-/* ---------- Header (Flexbox) ---------- */
-.site-header {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
-
-.header-inner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space);
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-
-.brand img {
-  display: block;
-  width: 160px;
-}
-
-.main-nav ul {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 1.25rem;
-  list-style: none;
-}
-
-.main-nav a:not(.button) {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.main-nav a[aria-current="page"] {
-  color: var(--accent);
-  border-bottom: 2px solid var(--teal);
-}
+/* advisoryo prototype – Page components and their responsive rules */
 
 /* ---------- Hero and search form ---------- */
 .hero {
@@ -220,22 +54,6 @@ ol {
   border-radius: 8px;
   background: var(--bg);
   color: var(--text);
-}
-
-/* ---------- Sections ---------- */
-.latest,
-.how,
-.audiences {
-  padding: 3.5rem 0;
-}
-
-.section-head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  margin-bottom: 1.5rem;
 }
 
 /* ---------- Advisory cards (Grid) ---------- */
@@ -299,6 +117,7 @@ ol {
 
 .meta code {
   white-space: nowrap;
+  font-size: 0.85em;
 }
 
 .meta dd {
@@ -389,35 +208,6 @@ ol {
   font-weight: 600;
 }
 
-/* ---------- Footer ---------- */
-.site-footer {
-  background: var(--navy);
-  color: #cbd5e1;
-  padding: 2rem 0;
-  font-size: 0.9rem;
-}
-
-.site-footer a {
-  color: #5eead4;
-}
-
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space);
-}
-
-.footer-inner p {
-  margin: 0;
-}
-
-.footer-inner ul {
-  display: flex;
-  gap: 1.25rem;
-  list-style: none;
-}
-
 /* ---------- Responsive: tablet and up ---------- */
 @media (min-width: 40rem) {
   .advisory-grid,
@@ -433,7 +223,7 @@ ol {
 /* ---------- Responsive: desktop ---------- */
 @media (min-width: 64rem) {
   .advisory-grid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .hero {

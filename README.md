@@ -123,17 +123,36 @@ REST API (from M3, draft):
 | PATCH | `/api/organizations/:slug` | Approve or suspend an organization | platform admin |
 | POST | `/api/auth/register`, `/api/auth/login`, `/api/auth/logout` | Authentication | – |
 
+## Project structure
+
+```
+advisoryo/
+├── prototype/          M1: static HTML/CSS prototype, one file per URL
+│   ├── index.html      /  (home)
+│   └── css/
+│       ├── base.css        design tokens, reset, typography, buttons
+│       ├── layout.css      header, sections, footer
+│       └── components.css  search form, advisory cards, responsive rules
+├── public/
+│   └── logo/           logo variants (light and dark), later served by Next.js
+├── README.md
+└── LICENSE
+```
+
+From M2 on, the Next.js app lives next to the prototype (`src/app/`, `package.json`), and `public/` becomes its static asset folder. The prototype pages use the logos from `../public/logo/`, so they work when opened directly in the browser or served from the repository root.
+
 ## M1 criteria mapping
 
-*To be filled in with the HTML/CSS prototype.*
+*Will be completed as the remaining pages are added.*
 
 | Criterion | File | Line / note |
 |---|---|---|
-| Semantic HTML structure | `index.html` | l. … |
-| Form with labels | `upload.html` | l. … (upload form) |
-| Responsive layout (Flexbox/Grid) | `styles.css` | l. … |
-| Media query | `styles.css` | l. … |
-| URL structure | `index.html`, `advisories.html`, `advisory.html`, `upload.html`, `login.html` | see section URL structure |
+| Semantic HTML structure | `prototype/index.html` | l. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
+| Form with labels | `prototype/index.html` | l. 44–60 (search form, `label for` / `name`) |
+| Responsive layout (Flexbox) | `prototype/css/layout.css` | l. 10 (header), l. 72 (footer) |
+| Responsive layout (Grid) | `prototype/css/components.css` | l. 61 (advisory cards), l. 155 (steps) |
+| Media query | `prototype/css/components.css` | l. 211, l. 223, l. 234 |
+| URL structure | `prototype/*.html` | one file per path, see section URL structure |
 
 ## Milestones
 
