@@ -620,6 +620,10 @@ legend {
   margin: 0 auto;
 }
 
+.auth-card-wide {
+  max-width: 40rem;
+}
+
 .auth-card h1 {
   font-size: 1.6rem;
 }
@@ -636,4 +640,31 @@ legend {
 .auth-switch {
   margin: 1.25rem 0 0;
   text-align: center;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  .form-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.auth-card fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.auth-card fieldset legend {
+  float: left;
+  width: 100%;
+  margin: 0;
+  font-size: 1rem;
 }

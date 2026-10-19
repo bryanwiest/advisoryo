@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Register your organization on advisoryo to publish CSAF 2.0 security advisories.">
+  <title>Register organization – advisoryo</title>
+  <link rel="icon" href="assets/logo/advisoryo-mark-auto.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="advisoryo home">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+          <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="160" height="45">
+        </picture>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="advisories.html">Advisories</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a class="button button-small" href="login.html">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="auth">
+    <div class="container">
+      <section class="form-card auth-card auth-card-wide" aria-labelledby="register-title">
+        <h1 id="register-title">Register your organization</h1>
+        <p class="auth-intro">
+          A platform admin checks every new organization before its first advisory goes public.
+          You become the organization manager and can invite publishers afterwards.
+        </p>
+
+        <form class="form-stack" action="register.html" method="post">
+          <fieldset>
+            <legend>Organization</legend>
+            <div class="field">
+              <label for="org-name">Company name</label>
+              <input type="text" id="org-name" name="orgName" autocomplete="organization" required>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="org-website">Website</label>
+                <input type="url" id="org-website" name="orgWebsite" placeholder="https://" required>
+              </div>
+              <div class="field">
+                <label for="org-type">Products</label>
+                <select id="org-type" name="orgType">
+                  <option value="software">Software</option>
+                  <option value="hardware">Hardware and IoT devices</option>
+                  <option value="machinery">Machinery and industrial systems</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="org-contact">Security contact (PSIRT email)</label>
+              <input type="email" id="org-contact" name="orgContact" placeholder="psirt@example.com">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Your account</legend>
+            <div class="form-row">
+              <div class="field">
+                <label for="name">Full name</label>
+                <input type="text" id="name" name="name" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="reg-email">Work email</label>
+                <input type="email" id="reg-email" name="email" autocomplete="email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" name="password" autocomplete="new-password" minlength="12" required aria-describedby="password-hint">
+                <p id="password-hint" class="hint">At least 12 characters.</p>
+              </div>
+              <div class="field">
+                <label for="reg-password-repeat">Repeat password</label>
+                <input type="password" id="reg-password-repeat" name="passwordRepeat" autocomplete="new-password" minlength="12" required>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="choice">
+            <input type="checkbox" id="terms" name="terms" value="yes" required>
+            <label for="terms">I am authorised to publish security advisories for this organization.</label>
+          </div>
+
+          <button class="button" type="submit">Register organization</button>
+        </form>
+
+        <p class="auth-switch">Already registered? <a href="login.html">Sign in</a></p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>advisoryo, a student project for Web Applications at HTWG Konstanz, winter term 2026/27.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html">CSAF 2.0 specification</a></li>
+          <li><a href="https://github.com/bryanwiest/advisoryo">Source code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
