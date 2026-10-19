@@ -668,3 +668,40 @@ legend {
   margin: 0;
   font-size: 1rem;
 }
+
+/* ---------- Organization profile ---------- */
+.org-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.org-avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: var(--teal);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.org-head .badge {
+  margin-bottom: 0.5rem;
+}
+
+.badge-verified {
+  background: var(--teal-dark);
+}
+
+.panel p {
+  margin: 0 0 0.5rem;
+}
+
+.panel p:last-child {
+  margin-bottom: 0;
+}
