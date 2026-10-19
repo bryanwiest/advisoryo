@@ -2,7 +2,11 @@
 
 /* ---------- Hero and search form ---------- */
 .hero {
-  background: var(--hero-bg);
+  /* Fade keeps the text readable where the illustration sits behind it */
+  background:
+    linear-gradient(90deg, var(--hero-bg) 35%, transparent 85%),
+    url("../assets/img/hero-bg.svg") right center / cover no-repeat,
+    var(--hero-bg);
   color: var(--hero-text);
   padding: 4rem 0;
 }
@@ -234,6 +238,16 @@
 
   .hero {
     padding: 5.5rem 0;
+  }
+}
+
+/* ---------- Responsive: wide screens ---------- */
+@media (min-width: 90rem) {
+  /* Text and illustration no longer overlap, so the fade can go */
+  .hero {
+    background:
+      url("../assets/img/hero-bg.svg") right center / cover no-repeat,
+      var(--hero-bg);
   }
 }
 
