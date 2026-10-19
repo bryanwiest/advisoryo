@@ -84,3 +84,39 @@
   gap: 1.25rem;
   list-style: none;
 }
+
+/* ---------- Page head and body ---------- */
+.page-head {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 0 2rem;
+}
+
+.page-head h1 {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.page-head p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--text-muted);
+}
+
+.page-body {
+  padding-top: 2.5rem;
+  padding-bottom: 3.5rem;
+}
+
+/* ---------- Sidebar layout (Grid) ---------- */
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .sidebar-layout {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+}
