@@ -35,7 +35,7 @@
   font-weight: 500;
 }
 
-.main-nav a[aria-current="page"] {
+.main-nav a:not(.button)[aria-current="page"] {
   color: var(--accent);
   border-bottom: 2px solid var(--teal);
 }
