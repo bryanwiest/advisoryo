@@ -120,3 +120,17 @@
     grid-template-columns: 16rem minmax(0, 1fr);
   }
 }
+
+/* ---------- Detail layout (Grid) ---------- */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .detail-layout {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+  }
+}

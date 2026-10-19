@@ -1,0 +1,79 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": { "tlp": { "label": "WHITE" } },
+    "lang": "en",
+    "publisher": {
+      "category": "vendor",
+      "name": "Example Networks GmbH",
+      "namespace": "https://example.com"
+    },
+    "title": "Remote code execution in NetGate firmware web interface",
+    "tracking": {
+      "current_release_date": "2026-10-17T09:00:00.000Z",
+      "id": "EXN-SA-2026-007",
+      "initial_release_date": "2026-10-10T09:00:00.000Z",
+      "revision_history": [
+        { "date": "2026-10-10T09:00:00.000Z", "number": "1", "summary": "Initial release." },
+        { "date": "2026-10-17T09:00:00.000Z", "number": "2", "summary": "Fixed firmware 4.2.1 released." }
+      ],
+      "status": "final",
+      "version": "2"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Example Networks GmbH",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "NetGate 200",
+            "branches": [
+              { "category": "product_version_range", "name": "vers:generic/<4.2.1", "product": { "name": "NetGate 200 firmware < 4.2.1", "product_id": "CSAFPID-0001" } },
+              { "category": "product_version", "name": "4.2.1", "product": { "name": "NetGate 200 firmware 4.2.1", "product_id": "CSAFPID-0002" } }
+            ]
+          },
+          {
+            "category": "product_name",
+            "name": "NetGate 500",
+            "branches": [
+              { "category": "product_version_range", "name": "vers:generic/<4.2.1", "product": { "name": "NetGate 500 firmware < 4.2.1", "product_id": "CSAFPID-0003" } },
+              { "category": "product_version", "name": "4.2.1", "product": { "name": "NetGate 500 firmware 4.2.1", "product_id": "CSAFPID-0004" } }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-41021",
+      "cwe": { "id": "CWE-78", "name": "Improper Neutralization of Special Elements used in an OS Command ('OS Command Injection')" },
+      "notes": [
+        { "category": "description", "text": "The diagnostics page of the web interface passes the host parameter to a shell command without sanitising it. An unauthenticated attacker on the management network can execute arbitrary commands as root." }
+      ],
+      "product_status": {
+        "known_affected": ["CSAFPID-0001", "CSAFPID-0003"],
+        "fixed": ["CSAFPID-0002", "CSAFPID-0004"]
+      },
+      "remediations": [
+        { "category": "vendor_fix", "details": "Update the firmware to version 4.2.1 or later.", "product_ids": ["CSAFPID-0001", "CSAFPID-0003"] },
+        { "category": "workaround", "details": "Restrict access to the web interface to trusted management hosts.", "product_ids": ["CSAFPID-0001", "CSAFPID-0003"] }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 9.8,
+            "baseSeverity": "CRITICAL",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          },
+          "products": ["CSAFPID-0001", "CSAFPID-0003"]
+        }
+      ]
+    }
+  ]
+}
