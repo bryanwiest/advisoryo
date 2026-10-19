@@ -127,29 +127,45 @@ REST API (from M3, draft):
 
 ```
 advisoryo/
-├── index.html          /  (home), one HTML file per URL
+├── index.html          /                      home with search and latest advisories
+├── advisories.html     /advisories            list with filters
+├── advisory.html       /advisories/:id        detail view (filled with one example advisory)
+├── organization.html   /organizations/:slug   public manufacturer profile
+├── upload.html         /upload                upload form (publisher)
+├── login.html          /login                 sign-in
+├── register.html       /register              organization registration
 ├── css/
 │   ├── base.css        design tokens, reset, typography, buttons
-│   ├── layout.css      header, sections, footer
-│   └── components.css  search form, advisory cards, responsive rules
+│   ├── layout.css      header, footer, page head, grid layouts
+│   └── components.css  forms, cards, tables, page components
 ├── assets/
-│   └── logo/           logo variants (light and dark)
+│   ├── logo/           logo variants (light and dark)
+│   └── csaf/           example CSAF 2.0 document (download on the detail page)
 ├── README.md
 └── LICENSE
 ```
 
-## M1 criteria mapping
+The static prototype has no templating, so `advisory.html` and `organization.html` each show one example. From M2 on they become routes that render any advisory or organization from data.
 
-*Will be completed as the remaining pages are added.*
+## M1 criteria mapping
 
 | Criterion | File | Line / note |
 |---|---|---|
 | Semantic HTML structure | `index.html` | l. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
-| Form with labels | `index.html` | l. 44–60 (search form, `label for` / `name`) |
+| | `advisory.html` | l. 36–172 (`article` with `header`, `section`s and `aside`, breadcrumb `nav`, `table` with `caption` and `th scope`) |
+| Form with labels | `upload.html` | l. 44–88 (upload form: `label for`/`name`, file input, `fieldset`/`legend`, required fields) |
+| | `register.html` | l. 44–103 (registration form with `fieldset`s, `type="email"`, `type="url"`, `minlength`) |
+| | `login.html` | l. 41–58 (sign-in form with `autocomplete`) |
+| | `advisories.html` | l. 46–87 (filter form with checkboxes, select and date, `method="get"`) |
+| | `index.html` | l. 44–60 (search form) |
 | Responsive layout (Flexbox) | `css/layout.css` | l. 10 (header), l. 72 (footer) |
-| Responsive layout (Grid) | `css/components.css` | l. 61 (advisory cards), l. 155 (steps) |
-| Media query | `css/components.css` | l. 211, l. 223, l. 234 |
-| URL structure | `*.html` | one file per path, see section URL structure |
+| | `css/components.css` | l. 23 (search form), l. 253 (form stack), l. 327 (result header) |
+| Responsive layout (Grid) | `css/layout.css` | l. 112 (sidebar layout), l. 126 (detail layout) |
+| | `css/components.css` | l. 61 (advisory cards), l. 162 (steps), l. 646 (two-column form rows) |
+| Media query | `css/layout.css` | l. 118, l. 132 (sidebar and detail layouts from 56rem) |
+| | `css/components.css` | l. 218, l. 230, l. 241 (cards and steps), l. 651 (form rows) |
+| | `css/base.css` | l. 30 (`prefers-color-scheme: dark`) |
+| URL structure | all `*.html` | one file per path, see Project structure and URL structure |
 
 ## Milestones
 
