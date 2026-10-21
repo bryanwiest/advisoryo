@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Upload a CSAF 2.0 document. advisoryo validates it against the official schema before publishing it.">
+  <title>Upload advisory – advisoryo</title>
+  <link rel="icon" href="assets/logo/advisoryo-mark-auto.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="advisoryo home">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+          <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="160" height="45">
+        </picture>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="advisories.html">Advisories</a></li>
+          <li><a href="upload.html" aria-current="page">Upload</a></li>
+          <li><a class="button button-small" href="login.html">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <h1>Upload advisory</h1>
+        <p>Upload a CSAF 2.0 JSON document. advisoryo validates it against the official schema and publishes it only if it is valid.</p>
+      </div>
+    </section>
+
+    <div class="container container-narrow page-body">
+      <form class="form-card form-stack" action="upload.html" method="post" enctype="multipart/form-data">
+        <div class="field">
+          <label for="organization">Organization</label>
+          <select id="organization" name="organization" required>
+            <option value="example-networks">Example Networks GmbH</option>
+          </select>
+        </div>
+
+        <fieldset>
+          <legend>Upload type</legend>
+          <div class="choice"><input type="radio" id="type-new" name="type" value="new" checked><label for="type-new">New advisory</label></div>
+          <div class="choice"><input type="radio" id="type-revision" name="type" value="revision"><label for="type-revision">New revision of an existing advisory</label></div>
+        </fieldset>
+
+        <div class="field">
+          <label for="advisory">Existing advisory (only for revisions)</label>
+          <select id="advisory" name="advisory">
+            <option value="">Select an advisory</option>
+            <option value="EXN-SA-2026-007">EXN-SA-2026-007, Remote code execution in NetGate firmware</option>
+            <option value="EXN-SA-2026-006">EXN-SA-2026-006, Hard-coded credentials in NetGate</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="document">CSAF document</label>
+          <input type="file" id="document" name="document" accept=".json,application/json" required aria-describedby="document-hint">
+          <p id="document-hint" class="hint">JSON only, up to 2 MB. Documents exported from Secvisogram can be uploaded directly.</p>
+        </div>
+
+        <div class="field">
+          <label for="summary">Change summary (optional)</label>
+          <textarea id="summary" name="summary" rows="3" aria-describedby="summary-hint"></textarea>
+          <p id="summary-hint" class="hint">Shown in the revision history of the advisory.</p>
+        </div>
+
+        <div class="choice">
+          <input type="checkbox" id="confirm" name="confirm" value="yes" required>
+          <label for="confirm">I confirm that this advisory may be published publicly (TLP:CLEAR).</label>
+        </div>
+
+        <div class="form-actions">
+          <button class="button" type="submit">Validate and publish</button>
+          <a href="advisories.html">Cancel</a>
+        </div>
+      </form>
+
+      <section class="validation" aria-labelledby="validation-title">
+        <h2 id="validation-title">Validation result (example)</h2>
+        <p class="hint">If a document is invalid, nothing is published and every error is listed with its location in the document.</p>
+        <ul class="validation-list">
+          <li>
+            <code>/document/tracking/version</code>
+            The version must match the last entry of the revision history.
+          </li>
+          <li>
+            <code>/product_tree/branches/0/branches/1/product/product_id</code>
+            The product ID CSAFPID-0002 is defined twice.
+          </li>
+          <li>
+            <code>/vulnerabilities/0/cve</code>
+            CVE-26-41021 is not a valid CVE ID (expected format CVE-YYYY-NNNN).
+          </li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>advisoryo, a student project for Web Applications at HTWG Konstanz, winter term 2026/27.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html">CSAF 2.0 specification</a></li>
+          <li><a href="https://github.com/bryanwiest/advisoryo">Source code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

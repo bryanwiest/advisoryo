@@ -1,0 +1,721 @@
+/* advisoryo – Page components and their responsive rules */
+
+/* ---------- Hero and search form ---------- */
+.hero {
+  /* Fade keeps the text readable where the illustration sits behind it */
+  background:
+    linear-gradient(90deg, var(--hero-bg) 35%, transparent 85%),
+    url("../assets/img/hero-bg.svg") right center / cover no-repeat,
+    var(--hero-bg);
+  color: var(--hero-text);
+  padding: 4rem 0;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.75rem);
+  max-width: 20ch;
+}
+
+.lead {
+  font-size: 1.15rem;
+  max-width: 60ch;
+  color: #cbd5e1;
+  margin: 0 0 2rem;
+}
+
+.search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space);
+  background: var(--surface);
+  color: var(--text);
+  padding: 1.25rem;
+  border-radius: var(--radius);
+  max-width: 50rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.field-grow {
+  flex: 1 1 18rem;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.field input,
+.field select {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ---------- Advisory cards (Grid) ---------- */
+.advisory-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+.advisory-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.advisory-card h3 {
+  font-size: 1.05rem;
+  margin-top: 0.75rem;
+}
+
+.advisory-card h3 a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.advisory-card h3 a:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.badge-critical { background: var(--critical); }
+.badge-high { background: var(--high); }
+.badge-medium { background: var(--medium); }
+.badge-low { background: var(--low); }
+
+.meta {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.25rem 0.75rem;
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+}
+
+.meta dt {
+  color: var(--text-muted);
+}
+
+.meta code {
+  white-space: nowrap;
+  font-size: 0.85em;
+}
+
+.meta dd {
+  margin: 0;
+}
+
+.status {
+  margin: auto 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.status::before,
+.status-label::before {
+  content: "";
+  display: inline-block;
+  width: 0.6rem;
+  height: 0.6rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+}
+
+.status-label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.status-fixed::before { background: var(--low); }
+.status-affected::before { background: var(--critical); }
+.status-not-affected::before { background: var(--text-muted); }
+
+/* ---------- How it works ---------- */
+.how {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps li {
+  counter-increment: step;
+  padding-left: 3.25rem;
+  position: relative;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--navy);
+  color: var(--teal);
+  font-weight: 700;
+}
+
+.steps p,
+.audience p {
+  margin: 0;
+  color: var(--text-muted);
+}
+
+/* ---------- Audiences ---------- */
+.audience-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.audience {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--teal);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.audience a {
+  display: inline-block;
+  margin-top: 1rem;
+  font-weight: 600;
+}
+
+/* ---------- Responsive: tablet and up ---------- */
+@media (min-width: 40rem) {
+  .advisory-grid,
+  .audience-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ---------- Responsive: desktop ---------- */
+@media (min-width: 64rem) {
+  .advisory-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .hero {
+    padding: 5.5rem 0;
+  }
+}
+
+/* ---------- Responsive: wide screens ---------- */
+@media (min-width: 90rem) {
+  /* Text and illustration no longer overlap, so the fade can go */
+  .hero {
+    background:
+      url("../assets/img/hero-bg.svg") right center / cover no-repeat,
+      var(--hero-bg);
+  }
+}
+
+/* ---------- Responsive: small phones ---------- */
+@media (max-width: 30rem) {
+  .search-form .button {
+    width: 100%;
+  }
+
+  .field {
+    flex: 1 1 100%;
+  }
+}
+
+/* ---------- Forms ---------- */
+.form-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  margin-bottom: 0.4rem;
+  padding: 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.15rem 0;
+}
+
+.choice input {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin: 0;
+  accent-color: var(--teal-dark);
+}
+
+.field textarea {
+  font: inherit;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  resize: vertical;
+}
+
+.hint {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* ---------- Filters and result table ---------- */
+.filters {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.filters h2,
+.results-head h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.filters h2 {
+  margin-bottom: 1rem;
+}
+
+.results-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.sort {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sort select {
+  font: inherit;
+  padding: 0.35rem 0.5rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table thead th {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg);
+}
+
+.data-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-table .badge {
+  white-space: nowrap;
+}
+
+.row-title {
+  display: block;
+  min-width: 14rem;
+  font-weight: 600;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.row-title:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+.row-org {
+  font-size: 0.85rem;
+}
+
+.data-table code,
+.data-table time {
+  white-space: nowrap;
+}
+
+.data-table code {
+  font-size: 0.85em;
+}
+
+.pagination ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  list-style: none;
+}
+
+.pagination a,
+.pagination span {
+  display: block;
+  min-width: 2.25rem;
+  padding: 0.35rem 0.7rem;
+  text-align: center;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.pagination span {
+  color: var(--text-muted);
+}
+
+.pagination a[aria-current="page"] {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #ffffff;
+}
+
+/* ---------- Advisory detail ---------- */
+.button-secondary {
+  background: transparent;
+  color: var(--accent);
+  box-shadow: inset 0 0 0 2px var(--teal);
+}
+
+.button-secondary:hover {
+  background: var(--bg);
+}
+
+.breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.breadcrumb li + li::before {
+  content: "/";
+  margin-right: 0.4rem;
+}
+
+.advisory-detail .page-head .badge {
+  margin-bottom: 0.75rem;
+}
+
+.detail-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  list-style: none;
+  color: var(--text-muted);
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.detail-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.detail-main h2 {
+  font-size: 1.3rem;
+}
+
+.detail-main p {
+  margin: 0;
+}
+
+.panel {
+  padding: 1.25rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.panel h2 {
+  font-size: 1rem;
+}
+
+.panel .meta:last-child {
+  margin-bottom: 0;
+}
+
+.vuln h3 {
+  font-size: 1.1rem;
+}
+
+.meta .code-wrap {
+  white-space: normal;
+  font-size: 0.8em;
+  overflow-wrap: anywhere;
+}
+
+.remediation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+}
+
+.remediation-list li {
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 4px solid var(--teal);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.detail-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.revisions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  list-style: none;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.revisions strong {
+  display: block;
+  color: var(--text);
+}
+
+/* ---------- Upload ---------- */
+.form-card {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.field input[type="file"] {
+  padding: 0.5rem;
+}
+
+.choice input[type="checkbox"]:required + label::after {
+  content: " *";
+  color: var(--critical);
+}
+
+.validation {
+  margin-top: 2.5rem;
+}
+
+.validation h2 {
+  font-size: 1.1rem;
+}
+
+.validation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  list-style: none;
+}
+
+.validation-list li {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--critical);
+  border-radius: 8px;
+}
+
+.validation-list code {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Sign in and registration ---------- */
+.auth {
+  padding: 3rem 0 4rem;
+}
+
+.auth-card {
+  max-width: 28rem;
+  margin: 0 auto;
+}
+
+.auth-card-wide {
+  max-width: 40rem;
+}
+
+.auth-card h1 {
+  font-size: 1.6rem;
+}
+
+.auth-intro {
+  margin: 0 0 1.5rem;
+  color: var(--text-muted);
+}
+
+.auth-card .button {
+  width: 100%;
+}
+
+.auth-switch {
+  margin: 1.25rem 0 0;
+  text-align: center;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  .form-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.auth-card fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.auth-card fieldset legend {
+  float: left;
+  width: 100%;
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ---------- Organization profile ---------- */
+.org-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.org-avatar {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: var(--teal);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.org-head .badge {
+  margin-bottom: 0.5rem;
+}
+
+.badge-verified {
+  background: var(--teal-dark);
+}
+
+.panel p {
+  margin: 0 0 0.5rem;
+}
+
+.panel p:last-child {
+  margin-bottom: 0;
+}

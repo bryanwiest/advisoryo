@@ -1,0 +1,140 @@
+/* advisoryo – Page frame: header, sections and footer */
+
+/* ---------- Header (Flexbox) ---------- */
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space);
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.brand img {
+  display: block;
+  width: 160px;
+}
+
+.main-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.25rem;
+  list-style: none;
+}
+
+.main-nav a:not(.button) {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.main-nav a:not(.button)[aria-current="page"] {
+  color: var(--accent);
+  border-bottom: 2px solid var(--teal);
+}
+
+/* ---------- Sections ---------- */
+.latest,
+.how,
+.audiences {
+  padding: 3.5rem 0;
+}
+
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--navy);
+  color: #cbd5e1;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+.site-footer a {
+  color: #5eead4;
+}
+
+.footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space);
+}
+
+.footer-inner p {
+  margin: 0;
+}
+
+.footer-inner ul {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+}
+
+/* ---------- Page head and body ---------- */
+.page-head {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 2.5rem 0 2rem;
+}
+
+.page-head h1 {
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+}
+
+.page-head p {
+  margin: 0;
+  max-width: 60ch;
+  color: var(--text-muted);
+}
+
+.page-body {
+  padding-top: 2.5rem;
+  padding-bottom: 3.5rem;
+}
+
+/* ---------- Sidebar layout (Grid) ---------- */
+.sidebar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .sidebar-layout {
+    grid-template-columns: 16rem minmax(0, 1fr);
+  }
+}
+
+/* ---------- Detail layout (Grid) ---------- */
+.detail-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 56rem) {
+  .detail-layout {
+    grid-template-columns: minmax(0, 1fr) 18rem;
+  }
+}
+
+.container-narrow {
+  max-width: 44rem;
+}

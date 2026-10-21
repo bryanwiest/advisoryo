@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search and filter all published CSAF 2.0 security advisories by CVE, product, manufacturer, severity and status.">
+  <title>Advisories – advisoryo</title>
+  <link rel="icon" href="assets/logo/advisoryo-mark-auto.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="advisoryo home">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+          <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="160" height="45">
+        </picture>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="advisories.html" aria-current="page">Advisories</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a class="button button-small" href="login.html">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head">
+      <div class="container">
+        <h1>Advisories</h1>
+        <p>All published CSAF 2.0 advisories, newest first. Filter by severity, product status or manufacturer.</p>
+      </div>
+    </section>
+
+    <div class="container page-body sidebar-layout">
+      <aside class="filters" aria-labelledby="filter-title">
+        <h2 id="filter-title">Filter</h2>
+        <form id="filter-form" class="form-stack" action="advisories.html" method="get">
+          <div class="field">
+            <label for="q">Search</label>
+            <input type="search" id="q" name="q" placeholder="CVE ID, product or manufacturer">
+          </div>
+
+          <fieldset>
+            <legend>Severity</legend>
+            <div class="choice"><input type="checkbox" id="sev-critical" name="severity" value="critical"><label for="sev-critical">Critical</label></div>
+            <div class="choice"><input type="checkbox" id="sev-high" name="severity" value="high"><label for="sev-high">High</label></div>
+            <div class="choice"><input type="checkbox" id="sev-medium" name="severity" value="medium"><label for="sev-medium">Medium</label></div>
+            <div class="choice"><input type="checkbox" id="sev-low" name="severity" value="low"><label for="sev-low">Low</label></div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Product status</legend>
+            <div class="choice"><input type="checkbox" id="st-affected" name="status" value="known_affected"><label for="st-affected">Known affected</label></div>
+            <div class="choice"><input type="checkbox" id="st-fixed" name="status" value="fixed"><label for="st-fixed">Fixed</label></div>
+            <div class="choice"><input type="checkbox" id="st-not-affected" name="status" value="known_not_affected"><label for="st-not-affected">Not affected</label></div>
+          </fieldset>
+
+          <div class="field">
+            <label for="org">Manufacturer</label>
+            <select id="org" name="org">
+              <option value="">All manufacturers</option>
+              <option value="example-networks">Example Networks GmbH</option>
+              <option value="fleetlink">Fleetlink Software GmbH</option>
+              <option value="kessler">Kessler Maschinenbau KG</option>
+              <option value="thermo-devices">Thermo Devices AG</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="from">Published after</label>
+            <input type="date" id="from" name="from">
+          </div>
+
+          <div class="form-actions">
+            <button class="button" type="submit">Apply filters</button>
+            <a href="advisories.html">Reset</a>
+          </div>
+        </form>
+      </aside>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="results-head">
+          <h2 id="results-title">8 advisories</h2>
+          <div class="sort">
+            <label for="sort">Sort by</label>
+            <select id="sort" name="sort" form="filter-form">
+              <option value="newest">Newest first</option>
+              <option value="severity">Highest severity</option>
+              <option value="manufacturer">Manufacturer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <caption class="visually-hidden">Published advisories</caption>
+            <thead>
+              <tr>
+                <th scope="col">Severity</th>
+                <th scope="col">Advisory</th>
+                <th scope="col">CVE</th>
+                <th scope="col">Status</th>
+                <th scope="col">Published</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-critical">Critical 9.8</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Remote code execution in NetGate firmware web interface</a>
+                  <a class="row-org" href="organization.html">Example Networks GmbH</a>
+                </td>
+                <td><code>CVE-2026-41021</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-10-17">17 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-high">High 7.5</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Denial of service in SmartHeat controller MQTT client</a>
+                  <a class="row-org" href="organization.html">Thermo Devices AG</a>
+                </td>
+                <td><code>CVE-2026-39877</code></td>
+                <td><span class="status-label status-affected">Known affected</span></td>
+                <td><time datetime="2026-10-15">15 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-medium">Medium 5.3</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Information disclosure in Fleetlink API</a>
+                  <a class="row-org" href="organization.html">Fleetlink Software GmbH</a>
+                </td>
+                <td><code>CVE-2026-38102</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-10-12">12 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-low">Low 3.1</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Open redirect in MachineView HMI login page</a>
+                  <a class="row-org" href="organization.html">Kessler Maschinenbau KG</a>
+                </td>
+                <td><code>CVE-2026-36650</code></td>
+                <td><span class="status-label status-not-affected">Not affected</span></td>
+                <td><time datetime="2026-10-09">9 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-high">High 8.1</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Hard-coded credentials in NetGate maintenance service</a>
+                  <a class="row-org" href="organization.html">Example Networks GmbH</a>
+                </td>
+                <td><code>CVE-2026-35590</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-10-02">2 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-critical">Critical 9.1</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Authentication bypass in PlantLink OPC UA server</a>
+                  <a class="row-org" href="organization.html">Kessler Maschinenbau KG</a>
+                </td>
+                <td><code>CVE-2026-34411</code></td>
+                <td><span class="status-label status-affected">Known affected</span></td>
+                <td><time datetime="2026-09-28">28 Sep 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-medium">Medium 6.1</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Cross-site scripting in SmartHeat web dashboard</a>
+                  <a class="row-org" href="organization.html">Thermo Devices AG</a>
+                </td>
+                <td><code>CVE-2026-33007</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-09-21">21 Sep 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-low">Low 2.7</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Verbose error messages in Fleetlink mobile app</a>
+                  <a class="row-org" href="organization.html">Fleetlink Software GmbH</a>
+                </td>
+                <td><code>CVE-2026-31264</code></td>
+                <td><span class="status-label status-not-affected">Not affected</span></td>
+                <td><time datetime="2026-09-14">14 Sep 2026</time></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <nav class="pagination" aria-label="Pagination">
+          <ul>
+            <li><span aria-disabled="true">Previous</span></li>
+            <li><a href="advisories.html?page=1" aria-current="page">1</a></li>
+            <li><a href="advisories.html?page=2">2</a></li>
+            <li><a href="advisories.html?page=3">3</a></li>
+            <li><a href="advisories.html?page=2">Next</a></li>
+          </ul>
+        </nav>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>advisoryo, a student project for Web Applications at HTWG Konstanz, winter term 2026/27.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html">CSAF 2.0 specification</a></li>
+          <li><a href="https://github.com/bryanwiest/advisoryo">Source code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
