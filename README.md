@@ -110,16 +110,20 @@ advisoryo/
 └── LICENSE
 ```
 
-The static prototype has no templating, so `advisory.html` and `organization.html` each show one example. From M2 on they become routes that render any advisory or organization from data.
+`User` additionally has a flag for platform admins. `Revision` holds the original document (JSONB), the `tracking.id`, the version number and the upload timestamp.
 
-## Milestones
+## URL structure
 
-| Milestone | Content | Due | Git tag |
-|---|---|---|---|
-| M1 | Static HTML/CSS prototype: home, list, detail, upload, login | 2026-10-21 | `Meilenstein 1` |
-| M2 | React/TypeScript app with routing; advisories from local CSAF sample files | 2026-11-18 | `Meilenstein 2` |
-| M3 | API, PostgreSQL with Prisma, auth with roles, schema validation, security check | 2027-01-13 | `Meilenstein 3` |
-| M4 | Tests (authorization, validation, parser), deployment via Docker Compose, demo video, written report | after the lecture period | `Meilenstein 4` |
+| Path | Content |
+|---|---|
+| `/` | Home page with search and latest advisories |
+| `/advisories` | List with filters |
+| `/advisories/:id` | Advisory detail view |
+| `/organizations/:slug` | Public manufacturer profile with its advisories |
+| `/upload` | Upload form (publisher) |
+| `/org` | Management of the own organization (organization manager) |
+| `/login`, `/register` | Sign-in and registration |
+| `/admin` | Platform administration (platform admin) |
 
 ## License
 
