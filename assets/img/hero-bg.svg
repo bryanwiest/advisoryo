@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 560" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+  <defs>
+    <radialGradient id="glow" cx="1080" cy="280" r="560" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#14b8a6" stop-opacity="0.28"/>
+      <stop offset="0.55" stop-color="#14b8a6" stop-opacity="0.07"/>
+      <stop offset="1" stop-color="#14b8a6" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0.2" stop-color="#fff" stop-opacity="0"/>
+      <stop offset="0.75" stop-color="#fff" stop-opacity="1"/>
+    </linearGradient>
+    <mask id="right">
+      <rect width="1440" height="560" fill="url(#fade)"/>
+    </mask>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#ffffff" fill-opacity="0.16"/>
+    </pattern>
+  </defs>
+
+  <rect width="1440" height="560" fill="url(#glow)"/>
+  <rect width="1440" height="560" fill="url(#dots)" mask="url(#right)"/>
+
+  <!-- Signal arcs, echoing the logo -->
+  <g fill="none" stroke="#2dd4bf" stroke-linecap="round" stroke-width="3">
+    <path d="M1180 190 A130 130 0 0 1 1180 370" stroke-opacity="0.55"/>
+    <path d="M1230 120 A220 220 0 0 1 1230 440" stroke-opacity="0.35"/>
+    <path d="M1280 50 A310 310 0 0 1 1280 510" stroke-opacity="0.2"/>
+    <path d="M1330 -20 A400 400 0 0 1 1330 580" stroke-opacity="0.1"/>
+  </g>
+
+  <!-- Shield outline with check -->
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1060 110 L1170 150 V250 C1170 330 1123 390 1060 418 C997 390 950 330 950 250 V150 Z" stroke-opacity="0.18" stroke-width="3"/>
+    <path d="M1015 265 L1045 295 L1105 232" stroke="#2dd4bf" stroke-opacity="0.5" stroke-width="10"/>
+  </g>
+
+  <!-- Advisory documents connected to the shield -->
+  <g stroke="#ffffff" stroke-opacity="0.14" stroke-width="1.5" fill="none" stroke-dasharray="4 6">
+    <path d="M955 160 L924 120"/>
+    <path d="M1040 410 L1046 452"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.07" stroke="#ffffff" stroke-opacity="0.2" stroke-width="1.5">
+    <rect x="860" y="40" width="64" height="80" rx="6"/>
+    <rect x="1018" y="452" width="56" height="70" rx="6"/>
+  </g>
+  <g fill="#2dd4bf" fill-opacity="0.45">
+    <rect x="872" y="58" width="40" height="5" rx="2.5"/>
+    <rect x="1029" y="468" width="34" height="5" rx="2.5"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.22">
+    <rect x="872" y="72" width="40" height="4" rx="2"/><rect x="872" y="84" width="28" height="4" rx="2"/>
+    <rect x="1029" y="481" width="34" height="4" rx="2"/><rect x="1029" y="492" width="22" height="4" rx="2"/>
+  </g>
+</svg>

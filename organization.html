@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Security advisories published by Example Networks GmbH on advisoryo.">
+  <title>Example Networks GmbH – advisoryo</title>
+  <link rel="icon" href="assets/logo/advisoryo-mark-auto.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="advisoryo home">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+          <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="160" height="45">
+        </picture>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="advisories.html">Advisories</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a class="button button-small" href="login.html">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-head" aria-labelledby="org-title">
+      <div class="container org-head">
+        <span class="org-avatar" aria-hidden="true">EN</span>
+        <div>
+          <span class="badge badge-verified">Verified manufacturer</span>
+          <h1 id="org-title">Example Networks GmbH</h1>
+          <p>Manufacturer of network gateways and firewalls for small and medium-sized businesses.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="container page-body detail-layout">
+      <section aria-labelledby="org-advisories-title">
+        <div class="results-head">
+          <h2 id="org-advisories-title">Advisories by Example Networks</h2>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table">
+            <caption class="visually-hidden">Advisories published by Example Networks GmbH</caption>
+            <thead>
+              <tr>
+                <th scope="col">Severity</th>
+                <th scope="col">Advisory</th>
+                <th scope="col">CVE</th>
+                <th scope="col">Status</th>
+                <th scope="col">Published</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="badge badge-critical">Critical 9.8</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Remote code execution in NetGate firmware web interface</a>
+                </td>
+                <td><code>CVE-2026-41021</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-10-17">17 Oct 2026</time></td>
+              </tr>
+              <tr>
+                <td><span class="badge badge-high">High 8.1</span></td>
+                <td>
+                  <a class="row-title" href="advisory.html">Hard-coded credentials in NetGate maintenance service</a>
+                </td>
+                <td><code>CVE-2026-35590</code></td>
+                <td><span class="status-label status-fixed">Fixed</span></td>
+                <td><time datetime="2026-10-02">2 Oct 2026</time></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <aside class="detail-aside" aria-label="Organization information">
+        <section class="panel" aria-labelledby="about-title">
+          <h2 id="about-title">About</h2>
+          <dl class="meta">
+            <dt>Website</dt>
+            <dd><a href="https://example.com">example.com</a></dd>
+            <dt>Products</dt>
+            <dd>Hardware and IoT devices</dd>
+            <dt>On advisoryo since</dt>
+            <dd><time datetime="2026-03">March 2026</time></dd>
+            <dt>Advisories</dt>
+            <dd>2</dd>
+          </dl>
+        </section>
+
+        <section class="panel" aria-labelledby="contact-title">
+          <h2 id="contact-title">Report a vulnerability</h2>
+          <p class="hint">Found a security issue in a product of this manufacturer? Contact their security team.</p>
+          <p><a href="mailto:psirt@example.com">psirt@example.com</a></p>
+        </section>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>advisoryo, a student project for Web Applications at HTWG Konstanz, winter term 2026/27.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html">CSAF 2.0 specification</a></li>
+          <li><a href="https://github.com/bryanwiest/advisoryo">Source code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>

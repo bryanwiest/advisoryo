@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="advisoryo: manufacturers publish their security advisories in the CSAF 2.0 format, and anyone can search them.">
+  <title>advisoryo – CSAF security advisories</title>
+  <link rel="icon" href="assets/logo/advisoryo-mark-auto.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html" aria-label="advisoryo home">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
+          <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="160" height="45">
+        </picture>
+      </a>
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="advisories.html">Advisories</a></li>
+          <li><a href="upload.html">Upload</a></li>
+          <li><a class="button button-small" href="login.html">Sign in</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <h1 id="hero-title">Security advisories in CSAF&nbsp;2.0, in one place</h1>
+        <p class="lead">
+          Manufacturers publish their advisories as validated CSAF documents.
+          Operators and security teams find out in seconds whether their products are affected.
+        </p>
+
+        <form class="search-form" action="advisories.html" method="get" role="search">
+          <div class="field field-grow">
+            <label for="q">Search advisories</label>
+            <input type="search" id="q" name="q" placeholder="CVE ID, product or manufacturer" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="severity">Severity</label>
+            <select id="severity" name="severity">
+              <option value="">Any</option>
+              <option value="critical">Critical</option>
+              <option value="high">High</option>
+              <option value="medium">Medium</option>
+              <option value="low">Low</option>
+            </select>
+          </div>
+          <button class="button" type="submit">Search</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="latest" aria-labelledby="latest-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="latest-title">Latest advisories</h2>
+          <a href="advisories.html">View all advisories</a>
+        </div>
+
+        <ul class="advisory-grid">
+          <li>
+            <article class="advisory-card">
+              <header>
+                <span class="badge badge-critical">Critical 9.8</span>
+                <h3><a href="advisory.html">Remote code execution in NetGate firmware web interface</a></h3>
+              </header>
+              <dl class="meta">
+                <dt>Manufacturer</dt>
+                <dd><a href="organization.html">Example Networks GmbH</a></dd>
+                <dt>CVE</dt>
+                <dd><code>CVE-2026-41021</code></dd>
+                <dt>Published</dt>
+                <dd><time datetime="2026-10-17">17 Oct 2026</time></dd>
+              </dl>
+              <p class="status status-fixed">Fixed in firmware 4.2.1</p>
+            </article>
+          </li>
+          <li>
+            <article class="advisory-card">
+              <header>
+                <span class="badge badge-high">High 7.5</span>
+                <h3><a href="advisory.html">Denial of service in SmartHeat controller MQTT client</a></h3>
+              </header>
+              <dl class="meta">
+                <dt>Manufacturer</dt>
+                <dd><a href="organization.html">Thermo Devices AG</a></dd>
+                <dt>CVE</dt>
+                <dd><code>CVE-2026-39877</code></dd>
+                <dt>Published</dt>
+                <dd><time datetime="2026-10-15">15 Oct 2026</time></dd>
+              </dl>
+              <p class="status status-affected">Known affected, fix in progress</p>
+            </article>
+          </li>
+          <li>
+            <article class="advisory-card">
+              <header>
+                <span class="badge badge-medium">Medium 5.3</span>
+                <h3><a href="advisory.html">Information disclosure in Fleetlink API</a></h3>
+              </header>
+              <dl class="meta">
+                <dt>Manufacturer</dt>
+                <dd><a href="organization.html">Fleetlink Software GmbH</a></dd>
+                <dt>CVE</dt>
+                <dd><code>CVE-2026-38102</code></dd>
+                <dt>Published</dt>
+                <dd><time datetime="2026-10-12">12 Oct 2026</time></dd>
+              </dl>
+              <p class="status status-fixed">Fixed in version 3.8.0</p>
+            </article>
+          </li>
+          <li>
+            <article class="advisory-card">
+              <header>
+                <span class="badge badge-low">Low 3.1</span>
+                <h3><a href="advisory.html">Open redirect in MachineView HMI login page</a></h3>
+              </header>
+              <dl class="meta">
+                <dt>Manufacturer</dt>
+                <dd><a href="organization.html">Kessler Maschinenbau KG</a></dd>
+                <dt>CVE</dt>
+                <dd><code>CVE-2026-36650</code></dd>
+                <dt>Published</dt>
+                <dd><time datetime="2026-10-09">9 Oct 2026</time></dd>
+              </dl>
+              <p class="status status-not-affected">Not affected from version 2.0</p>
+            </article>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="how" aria-labelledby="how-title">
+      <div class="container">
+        <h2 id="how-title">How it works</h2>
+        <ol class="steps">
+          <li>
+            <h3>Write</h3>
+            <p>Publishers create the advisory in an editor such as Secvisogram and export it as CSAF&nbsp;2.0 JSON.</p>
+          </li>
+          <li>
+            <h3>Upload and validate</h3>
+            <p>advisoryo checks the document against the official CSAF schema and lists every error in plain language.</p>
+          </li>
+          <li>
+            <h3>Publish and find</h3>
+            <p>Valid advisories are public right away and searchable by CVE, product, manufacturer, severity and status.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="audiences" aria-labelledby="audiences-title">
+      <div class="container">
+        <h2 id="audiences-title">Who it is for</h2>
+        <div class="audience-grid">
+          <article class="audience">
+            <h3>Manufacturers</h3>
+            <p>
+              Meet your disclosure duties under the EU Cyber Resilience Act without running your own CSAF portal.
+              Organisation managers invite publishers and keep the company profile up to date.
+            </p>
+            <a href="login.html">Sign in to publish</a>
+          </article>
+          <article class="audience">
+            <h3>Operators and security teams</h3>
+            <p>
+              Search all advisories without an account, check which product versions are affected
+              and download the original CSAF document for your own tooling.
+            </p>
+            <a href="advisories.html">Browse advisories</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>advisoryo, a student project for Web Applications at HTWG Konstanz, winter term 2026/27.</p>
+      <nav aria-label="Footer navigation">
+        <ul>
+          <li><a href="https://docs.oasis-open.org/csaf/csaf/v2.0/csaf-v2.0.html">CSAF 2.0 specification</a></li>
+          <li><a href="https://github.com/bryanwiest/advisoryo">Source code</a></li>
+        </ul>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
