@@ -7,15 +7,30 @@
 
 # advisoryo
 
-> A platform where manufacturers publish their security advisories in the **CSAF 2.0** format and where anyone can search them.
-
 **Name:** Bryan Wiest
 **Repository:** https://github.com/bryanwiest/advisoryo
-**Course:** Web Applications (Web-Applikationen), winter term 2026/27, HTWG Konstanz
 
-## Project idea
+## Projektidee
 
-advisoryo is a web platform where manufacturers upload their security advisories as CSAF 2.0 documents. The platform validates every document against the official schema, extracts the key information (affected products, CVEs, severity, status) and makes it publicly searchable. The target audience is manufacturers of products with digital elements who have to communicate vulnerabilities and security updates under the EU Cyber Resilience Act (CRA) but do not run their own CSAF portal, as well as operators and security teams who want to know whether their products are affected.
+advisoryo ist eine Web-Plattform, auf der Hersteller ihre Security Advisories im Format CSAF 2.0 hochladen, die gegen das offizielle Schema validiert und anschließend öffentlich durchsuchbar gemacht werden. Sie richtet sich an Hersteller von Produkten mit digitalen Elementen, die nach dem EU Cyber Resilience Act Schwachstellen veröffentlichen müssen, aber kein eigenes CSAF-Portal betreiben. Betreiber und Security-Teams können ohne Konto nach CVE, Produkt, Hersteller, Schweregrad und Status suchen und sehen so, ob ihre Produkte betroffen sind.
+
+## Kriterien-Zuordnung M1
+
+| Kriterium | Datei | Zeile / Hinweis |
+|---|---|---|
+| Semantische HTML-Struktur | index.html | Z. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
+| | advisory.html | Z. 36–172 (`article` mit `header`, `section`, `aside`, Breadcrumb-`nav`, `table` mit `caption` und `th scope`) |
+| Formular mit Labels | upload.html | Z. 44–88 (Upload-Formular: `label for`/`name`, Datei-Upload, `fieldset`/`legend`, Pflichtfelder) |
+| | register.html | Z. 44–103 (Registrierung mit `fieldset`, `type="email"`, `type="url"`, `minlength`) |
+| | login.html | Z. 41–58 (Anmeldung mit `autocomplete`) |
+| | advisories.html | Z. 46–87 (Filter mit Checkboxen, Select und Datum, `method="get"`) |
+| | index.html | Z. 44–60 (Suchformular) |
+| Responsives Layout (Flexbox/Grid) | css/layout.css | Flexbox: Z. 10 (Header), Z. 72 (Footer); Grid: Z. 112 (Sidebar-Layout), Z. 126 (Detail-Layout) |
+| | css/components.css | Flexbox: Z. 27 (Suchformular), Z. 267 (Formulare), Z. 341 (Ergebnis-Kopf); Grid: Z. 65 (Advisory-Karten), Z. 166 (Schritte), Z. 660 (zweispaltige Formularzeilen) |
+| Media Query | css/components.css | Z. 222, 234, 245, 255 (Karten, Schritte, Hero), Z. 665 (Formularzeilen) |
+| | css/layout.css | Z. 118, 132 (Sidebar- und Detail-Layout ab 56rem) |
+| | css/base.css | Z. 30 (`prefers-color-scheme: dark`) |
+| URL-Struktur | index.html, advisories.html, advisory.html, organization.html, upload.html, login.html, register.html | Pfade: /, /advisories, /advisories/:id, /organizations/:slug, /upload, /login, /register |
 
 ## Background: CSAF
 
@@ -148,26 +163,6 @@ advisoryo/
 ```
 
 The static prototype has no templating, so `advisory.html` and `organization.html` each show one example. From M2 on they become routes that render any advisory or organization from data.
-
-## M1 criteria mapping
-
-| Criterion | File | Line / note |
-|---|---|---|
-| Semantic HTML structure | `index.html` | l. 16–199 (`header`, `nav`, `main`, `section`, `article`, `footer`) |
-| | `advisory.html` | l. 36–172 (`article` with `header`, `section`s and `aside`, breadcrumb `nav`, `table` with `caption` and `th scope`) |
-| Form with labels | `upload.html` | l. 44–88 (upload form: `label for`/`name`, file input, `fieldset`/`legend`, required fields) |
-| | `register.html` | l. 44–103 (registration form with `fieldset`s, `type="email"`, `type="url"`, `minlength`) |
-| | `login.html` | l. 41–58 (sign-in form with `autocomplete`) |
-| | `advisories.html` | l. 46–87 (filter form with checkboxes, select and date, `method="get"`) |
-| | `index.html` | l. 44–60 (search form) |
-| Responsive layout (Flexbox) | `css/layout.css` | l. 10 (header), l. 72 (footer) |
-| | `css/components.css` | l. 23 (search form), l. 253 (form stack), l. 327 (result header) |
-| Responsive layout (Grid) | `css/layout.css` | l. 112 (sidebar layout), l. 126 (detail layout) |
-| | `css/components.css` | l. 61 (advisory cards), l. 162 (steps), l. 646 (two-column form rows) |
-| Media query | `css/layout.css` | l. 118, l. 132 (sidebar and detail layouts from 56rem) |
-| | `css/components.css` | l. 218, l. 230, l. 241 (cards and steps), l. 651 (form rows) |
-| | `css/base.css` | l. 30 (`prefers-color-scheme: dark`) |
-| URL structure | all `*.html` | one file per path, see Project structure and URL structure |
 
 ## Milestones
 
