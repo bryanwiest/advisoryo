@@ -1,7 +1,7 @@
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/logo/advisoryo-dark.svg">
-    <img src="assets/logo/advisoryo.svg" alt="advisoryo" width="320">
+    <source media="(prefers-color-scheme: dark)" srcset="client/src/assets/logo/advisoryo-dark.svg">
+    <img src="client/src/assets/logo/advisoryo.svg" alt="advisoryo" width="320">
   </picture>
 </p>
 
