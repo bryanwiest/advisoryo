@@ -1,4 +1,6 @@
-import type { CsafBranch, CsafDocument } from '../types/csaf'
+import type { Advisory, ProductEntry, ProductStatus, Vulnerability } from '../types/advisory'
+import type { CsafBranch, CsafDocument, CsafProductStatusCategory } from '../types/csaf'
+import { severityFromScore } from './severity'
 
 export interface ValidationError {
   /** JSON pointer to the faulty field, e.g. /document/tracking/version */
@@ -141,4 +143,103 @@ export function validateCsaf(input: unknown): ValidationResult {
   })
 
   return errors.length > 0 ? { valid: false, errors } : { valid: true, document: doc }
+}
+
+const STATUS_MAPPING: Partial<Record<CsafProductStatusCategory, ProductStatus>> = {
+  first_affected: 'known_affected',
+  known_affected: 'known_affected',
+  last_affected: 'known_affected',
+  first_fixed: 'fixed',
+  fixed: 'fixed',
+  known_not_affected: 'known_not_affected',
+  under_investigation: 'under_investigation',
+}
+
+/** Overall status for lists: a fix is available > still affected > under investigation > not affected */
+function overallStatus(vulnerabilities: Vulnerability[]): ProductStatus {
+  const statuses = new Set(vulnerabilities.flatMap((v) => v.products.map((p) => p.status)))
+  if (statuses.has('fixed')) return 'fixed'
+  if (statuses.has('known_affected')) return 'known_affected'
+  if (statuses.has('under_investigation')) return 'under_investigation'
+  return 'known_not_affected'
+}
+
+/**
+ * Builds the normalized advisory from a validated CSAF document.
+ * Call validateCsaf() first; this function assumes the required fields exist.
+ */
+export function toAdvisory(doc: CsafDocument, organizationSlug: string): Advisory {
+  const meta = doc.document!
+  const tracking = meta.tracking!
+
+  // Product name and version come from the branch structure:
+  // vendor → product_name → product_version / product_version_range
+  const products = new Map<string, { product: string; version: string }>()
+  walkProducts(doc, (product, _path, ancestors) => {
+    const nameBranch = ancestors.findLast((branch) => branch.category === 'product_name')
+    const versionBranch = ancestors.findLast((branch) => branch.category?.startsWith('product_version'))
+    products.set(product.product_id!, {
+      product: nameBranch?.name ?? product.name ?? product.product_id!,
+      version: versionBranch?.name?.replace(/^vers:[a-z]+\//, '') ?? '',
+    })
+  })
+
+  const vulnerabilities: Vulnerability[] = (doc.vulnerabilities ?? []).map((vulnerability) => {
+    const entries: ProductEntry[] = []
+    for (const [category, ids] of Object.entries(vulnerability.product_status ?? {})) {
+      const status = STATUS_MAPPING[category as CsafProductStatusCategory]
+      if (!status || !ids) continue
+      for (const productId of ids) {
+        const product = products.get(productId)
+        entries.push({ productId, product: product?.product ?? productId, version: product?.version ?? '', status })
+      }
+    }
+    entries.sort((a, b) => a.productId.localeCompare(b.productId))
+
+    const cvss = vulnerability.scores?.find((score) => score.cvss_v3?.baseScore !== undefined)?.cvss_v3
+    const description = vulnerability.notes?.find((note) => note.category === 'description' || note.category === 'summary')
+
+    return {
+      cve: vulnerability.cve ?? null,
+      cwe: vulnerability.cwe?.id ? { id: vulnerability.cwe.id, name: vulnerability.cwe.name ?? '' } : null,
+      description: description?.text ?? '',
+      cvss: cvss ? { score: cvss.baseScore!, vector: cvss.vectorString ?? '', version: cvss.version ?? '3.x' } : null,
+      products: entries,
+      remediations: (vulnerability.remediations ?? []).map((r) => ({ category: r.category ?? '', details: r.details ?? '' })),
+    }
+  })
+
+  const scores = vulnerabilities.flatMap((v) => (v.cvss ? [v.cvss.score] : []))
+  const score = scores.length > 0 ? Math.max(...scores) : null
+  const summaryNote = meta.notes?.find((note) => note.category === 'summary')
+
+  return {
+    id: tracking.id!,
+    title: meta.title!,
+    organizationSlug,
+    summary: summaryNote?.text ?? vulnerabilities[0]?.description ?? '',
+    category: meta.category!,
+    documentStatus: tracking.status!,
+    tlp: meta.distribution?.tlp?.label ?? null,
+    lang: meta.lang ?? null,
+    version: tracking.version!,
+    initialReleaseDate: tracking.initial_release_date!,
+    currentReleaseDate: tracking.current_release_date!,
+    revisions: (tracking.revision_history ?? []).map((r) => ({
+      number: r.number ?? '',
+      date: r.date ?? '',
+      summary: r.summary ?? '',
+    })),
+    vulnerabilities,
+    score,
+    severity: severityFromScore(score),
+    status: overallStatus(vulnerabilities),
+    cves: vulnerabilities.flatMap((v) => (v.cve ? [v.cve] : [])),
+    document: doc,
+  }
+}
+
+/** Path segment for an advisory URL: /advisories/exn-sa-2026-007 */
+export function advisoryPath(advisory: Pick<Advisory, 'id'>): string {
+  return `/advisories/${encodeURIComponent(advisory.id.toLowerCase())}`
 }
