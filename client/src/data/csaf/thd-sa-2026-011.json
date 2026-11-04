@@ -1,0 +1,129 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "A malformed MQTT packet makes the SmartHeat controller restart in a loop. The heating keeps running in its last mode, but remote control and monitoring are unavailable until the attack stops. A fix is in progress."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Thermo Devices AG",
+      "namespace": "https://thermo-devices.example"
+    },
+    "title": "Denial of service in SmartHeat controller MQTT client",
+    "tracking": {
+      "current_release_date": "2026-10-15T09:00:00.000Z",
+      "id": "THD-SA-2026-011",
+      "initial_release_date": "2026-10-15T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-10-15T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Thermo Devices AG",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "SmartHeat C3",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<=5.1.4",
+                "product": {
+                  "name": "SmartHeat C3 <=5.1.4",
+                  "product_id": "CSAFPID-0001"
+                }
+              }
+            ]
+          },
+          {
+            "category": "product_name",
+            "name": "SmartHeat C5",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<=5.1.4",
+                "product": {
+                  "name": "SmartHeat C5 <=5.1.4",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-39877",
+      "cwe": {
+        "id": "CWE-400",
+        "name": "Uncontrolled Resource Consumption"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The MQTT client does not limit the length of the remaining-length field. A broker or attacker in the same network can send a packet that exhausts memory and crashes the controller."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001",
+          "CSAFPID-0002"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "mitigation",
+          "details": "Connect the controller only to a trusted MQTT broker and block port 1883 from untrusted networks.",
+          "product_ids": [
+            "CSAFPID-0001",
+            "CSAFPID-0002"
+          ]
+        },
+        {
+          "category": "none_available",
+          "details": "A firmware update is being prepared and will be announced in a new revision of this advisory.",
+          "product_ids": [
+            "CSAFPID-0001",
+            "CSAFPID-0002"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 7.5,
+            "baseSeverity": "HIGH",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001",
+            "CSAFPID-0002"
+          ]
+        }
+      ]
+    }
+  ]
+}

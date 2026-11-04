@@ -1,0 +1,104 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "Error messages of older Fleetlink app builds contained internal server paths. Current app versions 2.4 and later are not affected."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Fleetlink Software GmbH",
+      "namespace": "https://fleetlink.example"
+    },
+    "title": "Verbose error messages in Fleetlink mobile app",
+    "tracking": {
+      "current_release_date": "2026-09-14T09:00:00.000Z",
+      "id": "FLS-SA-2026-003",
+      "initial_release_date": "2026-09-14T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-09-14T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Fleetlink Software GmbH",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "Fleetlink Mobile App",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/>=2.4",
+                "product": {
+                  "name": "Fleetlink Mobile App >=2.4",
+                  "product_id": "CSAFPID-0001"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-31264",
+      "cwe": {
+        "id": "CWE-209",
+        "name": "Generation of Error Message Containing Sensitive Information"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "Stack traces from the API were shown to the user in builds before 2.4."
+        }
+      ],
+      "product_status": {
+        "known_not_affected": [
+          "CSAFPID-0001"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Install the current app version from the app store.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 2.7,
+            "baseSeverity": "LOW",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001"
+          ]
+        }
+      ]
+    }
+  ]
+}

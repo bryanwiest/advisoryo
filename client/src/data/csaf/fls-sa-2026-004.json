@@ -1,0 +1,120 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "The vehicle endpoint of the Fleetlink REST API returned the GPS history of vehicles belonging to other tenants when a vehicle ID was guessed. Version 3.8.0 checks tenant ownership."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Fleetlink Software GmbH",
+      "namespace": "https://fleetlink.example"
+    },
+    "title": "Information disclosure in Fleetlink API",
+    "tracking": {
+      "current_release_date": "2026-10-12T09:00:00.000Z",
+      "id": "FLS-SA-2026-004",
+      "initial_release_date": "2026-10-05T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-10-05T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        },
+        {
+          "date": "2026-10-12T09:00:00.000Z",
+          "number": "2",
+          "summary": "Fixed version 3.8.0 released."
+        }
+      ],
+      "status": "final",
+      "version": "2"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Fleetlink Software GmbH",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "Fleetlink API",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<3.8.0",
+                "product": {
+                  "name": "Fleetlink API <3.8.0",
+                  "product_id": "CSAFPID-0001"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "3.8.0",
+                "product": {
+                  "name": "Fleetlink API 3.8.0",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-38102",
+      "cwe": {
+        "id": "CWE-639",
+        "name": "Authorization Bypass Through User-Controlled Key"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The endpoint GET /vehicles/{id}/positions did not check whether the vehicle belongs to the tenant of the authenticated user."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001"
+        ],
+        "fixed": [
+          "CSAFPID-0002"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Fleetlink cloud customers are updated automatically. On-premises installations must update to version 3.8.0.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 5.3,
+            "baseSeverity": "MEDIUM",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001"
+          ]
+        }
+      ]
+    }
+  ]
+}
