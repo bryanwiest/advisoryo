@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { AdvisoryCard } from '../components/AdvisoryCard'
+import { SearchForm } from '../components/SearchForm'
 import { findOrganization } from '../data/organizations'
 import { newestFirst } from '../lib/filter'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
@@ -22,6 +23,7 @@ export function HomePage({ advisories }: HomePageProps) {
             Manufacturers publish their advisories as validated CSAF documents.
             Operators and security teams find out in seconds whether their products are affected.
           </p>
+          <SearchForm />
         </div>
       </section>
 
