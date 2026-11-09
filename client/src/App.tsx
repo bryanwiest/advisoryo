@@ -6,6 +6,7 @@ import { AdvisoriesPage } from './pages/AdvisoriesPage'
 import { AdvisoryPage } from './pages/AdvisoryPage'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
+import { OrganizationPage } from './pages/OrganizationPage'
 import type { Advisory } from './types/advisory'
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route index element={<HomePage advisories={advisories} />} />
           <Route path="advisories" element={<AdvisoriesPage advisories={advisories} />} />
           <Route path="advisories/:id" element={<AdvisoryPage advisories={advisories} />} />
+          <Route path="organizations/:slug" element={<OrganizationPage advisories={advisories} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
