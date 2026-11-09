@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router'
+import { DownloadJsonButton } from '../components/DownloadJsonButton'
 import { ProductStatusTable } from '../components/ProductStatusTable'
 import { RevisionHistory } from '../components/RevisionHistory'
 import { SeverityBadge } from '../components/SeverityBadge'
@@ -64,6 +65,9 @@ export function AdvisoryPage({ advisories }: AdvisoryPageProps) {
               </li>
             </ul>
             <div className="detail-actions">
+              <DownloadJsonButton data={advisory.document} fileName={`${advisory.id.toLowerCase()}.json`}>
+                Download CSAF JSON
+              </DownloadJsonButton>
               <a className="button button-secondary" href="https://secvisogram.github.io/">Open in Secvisogram</a>
             </div>
           </div>
