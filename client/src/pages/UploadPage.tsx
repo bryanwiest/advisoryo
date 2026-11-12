@@ -5,7 +5,7 @@ import { ValidationErrors } from '../components/ValidationErrors'
 import { findOrganization, organizations } from '../data/organizations'
 import { advisoryPath, toAdvisory, validateCsaf, type ValidationError } from '../lib/csaf'
 import { newestFirst } from '../lib/filter'
-import { MAX_FILE_SIZE, type UploadType } from '../lib/upload'
+import { checkUpload, MAX_FILE_SIZE, type UploadType } from '../lib/upload'
 import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import type { Advisory } from '../types/advisory'
 
@@ -29,6 +29,7 @@ export function UploadPage({ advisories, onPublish }: UploadPageProps) {
 
   const organization = findOrganization(organizationSlug)!
   const ownAdvisories = newestFirst(advisories.filter((advisory) => advisory.organizationSlug === organizationSlug))
+  const existing = advisories.find((advisory) => advisory.id === existingId)
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -49,7 +50,9 @@ export function UploadPage({ advisories, onPublish }: UploadPageProps) {
     }
 
     const result = validateCsaf(json)
-    const problems = result.valid ? [] : result.errors
+    const problems = result.valid
+      ? checkUpload(result.document, { organization, type: uploadType, advisories, existing })
+      : result.errors
     setChecking(false)
 
     if (!result.valid || problems.length > 0) {
