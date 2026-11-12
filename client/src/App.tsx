@@ -7,11 +7,18 @@ import { AdvisoryPage } from './pages/AdvisoryPage'
 import { HomePage } from './pages/HomePage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OrganizationPage } from './pages/OrganizationPage'
+import { UploadPage } from './pages/UploadPage'
 import type { Advisory } from './types/advisory'
 
 export default function App() {
-  // All advisories live here and are passed down as props.
-  const [advisories] = useState<Advisory[]>(sampleAdvisories)
+  // All advisories live here and are passed down as props. Until the backend exists (milestone 3),
+  // uploads are only kept in this state and are gone after a reload.
+  const [advisories, setAdvisories] = useState<Advisory[]>(sampleAdvisories)
+
+  function publish(advisory: Advisory) {
+    // A new revision replaces the published version with the same tracking ID.
+    setAdvisories((current) => [advisory, ...current.filter((existing) => existing.id !== advisory.id)])
+  }
 
   return (
     <BrowserRouter>
@@ -21,6 +28,7 @@ export default function App() {
           <Route path="advisories" element={<AdvisoriesPage advisories={advisories} />} />
           <Route path="advisories/:id" element={<AdvisoryPage advisories={advisories} />} />
           <Route path="organizations/:slug" element={<OrganizationPage advisories={advisories} />} />
+          <Route path="upload" element={<UploadPage advisories={advisories} onPublish={publish} />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
