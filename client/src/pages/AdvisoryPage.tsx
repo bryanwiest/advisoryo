@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router'
+import { Link, useLocation, useParams } from 'react-router'
 import { DownloadJsonButton } from '../components/DownloadJsonButton'
 import { ProductStatusTable } from '../components/ProductStatusTable'
 import { RevisionHistory } from '../components/RevisionHistory'
@@ -26,12 +26,15 @@ const LANGUAGES: Record<string, string> = { en: 'English', de: 'German' }
 
 export function AdvisoryPage({ advisories }: AdvisoryPageProps) {
   const { id = '' } = useParams()
+  const location = useLocation()
   const advisory = advisories.find((candidate) => candidate.id.toLowerCase() === id.toLowerCase())
   useDocumentTitle(advisory ? advisory.title : 'Advisory not found')
 
   if (!advisory) return <NotFoundPage what="advisory" />
 
   const organization = findOrganization(advisory.organizationSlug)
+  // Set by the upload page after a successful upload (see UploadPage.tsx)
+  const justPublished = (location.state as { published?: 'new' | 'revision' } | null)?.published
   const remediations = advisory.vulnerabilities.flatMap((v) => v.remediations)
   // The same remediation often applies to several vulnerabilities; show it once.
   const uniqueRemediations = remediations.filter(
@@ -50,6 +53,13 @@ export function AdvisoryPage({ advisories }: AdvisoryPageProps) {
                 <li aria-current="page">{advisory.id}</li>
               </ol>
             </nav>
+            {justPublished && (
+              <p className="notice notice-success" role="status">
+                {justPublished === 'revision'
+                  ? `Version ${advisory.version} of ${advisory.id} is published.`
+                  : `${advisory.id} is published and now listed under Advisories.`}
+              </p>
+            )}
             <SeverityBadge severity={advisory.severity} score={advisory.score} />
             <h1>{advisory.title}</h1>
             <ul className="detail-meta">
