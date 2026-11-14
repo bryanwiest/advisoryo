@@ -5,6 +5,7 @@ import { sampleAdvisories } from './data/advisories'
 import { AdvisoriesPage } from './pages/AdvisoriesPage'
 import { AdvisoryPage } from './pages/AdvisoryPage'
 import { HomePage } from './pages/HomePage'
+import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OrganizationPage } from './pages/OrganizationPage'
 import { UploadPage } from './pages/UploadPage'
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="advisories/:id" element={<AdvisoryPage advisories={advisories} />} />
           <Route path="organizations/:slug" element={<OrganizationPage advisories={advisories} />} />
           <Route path="upload" element={<UploadPage advisories={advisories} onPublish={publish} />} />
+          <Route path="login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
