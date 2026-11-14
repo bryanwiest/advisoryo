@@ -8,6 +8,7 @@ import { HomePage } from './pages/HomePage'
 import { LoginPage } from './pages/LoginPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { OrganizationPage } from './pages/OrganizationPage'
+import { RegisterPage } from './pages/RegisterPage'
 import { UploadPage } from './pages/UploadPage'
 import type { Advisory } from './types/advisory'
 
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="organizations/:slug" element={<OrganizationPage advisories={advisories} />} />
           <Route path="upload" element={<UploadPage advisories={advisories} onPublish={publish} />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
