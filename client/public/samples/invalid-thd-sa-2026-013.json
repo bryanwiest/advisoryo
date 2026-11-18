@@ -1,0 +1,141 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "SmartHeat controllers install firmware images without checking their signature. An attacker with access to the local network can install modified firmware. Firmware 5.2.0 verifies signatures before installing."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Thermo Devices AG",
+      "namespace": "https://thermo-devices.example"
+    },
+    "title": "Weak default password in SmartHeat setup wizard",
+    "tracking": {
+      "current_release_date": "2026-11-14T09:00:00.000Z",
+      "id": "THD-SA-2026-013",
+      "initial_release_date": "2026-11-14T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-11-14T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "2"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Thermo Devices AG",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "SmartHeat C3",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<5.2.0",
+                "product": {
+                  "name": "SmartHeat C3 <5.2.0",
+                  "product_id": "CSAFPID-0001"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "5.2.0",
+                "product": {
+                  "name": "SmartHeat C3 5.2.0",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          },
+          {
+            "category": "product_name",
+            "name": "SmartHeat C5",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<5.2.0",
+                "product": {
+                  "name": "SmartHeat C5 <5.2.0",
+                  "product_id": "CSAFPID-0003"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "5.2.0",
+                "product": {
+                  "name": "SmartHeat C5 5.2.0",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-26-44121",
+      "cwe": {
+        "id": "CWE-347",
+        "name": "Improper Verification of Cryptographic Signature"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The update service accepts firmware images over HTTP and only checks a CRC32 checksum."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001",
+          "CSAFPID-0003"
+        ],
+        "fixed": [
+          "CSAFPID-0002",
+          "CSAFPID-0004"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Update the firmware to version 5.2.0 or later.",
+          "product_ids": [
+            "CSAFPID-0001",
+            "CSAFPID-0003"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 8.8,
+            "baseSeverity": "HIGH",
+            "vectorString": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001",
+            "CSAFPID-0003"
+          ]
+        }
+      ]
+    }
+  ]
+}

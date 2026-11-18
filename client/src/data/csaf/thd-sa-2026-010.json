@@ -1,0 +1,115 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "The room name field of the SmartHeat web dashboard was not encoded on output. A signed-in user could store script code that runs in the browser of other users. Version 5.1.0 fixes the issue."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Thermo Devices AG",
+      "namespace": "https://thermo-devices.example"
+    },
+    "title": "Cross-site scripting in SmartHeat web dashboard",
+    "tracking": {
+      "current_release_date": "2026-09-21T09:00:00.000Z",
+      "id": "THD-SA-2026-010",
+      "initial_release_date": "2026-09-21T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-09-21T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Thermo Devices AG",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "SmartHeat Dashboard",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<5.1.0",
+                "product": {
+                  "name": "SmartHeat Dashboard <5.1.0",
+                  "product_id": "CSAFPID-0001"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "5.1.0",
+                "product": {
+                  "name": "SmartHeat Dashboard 5.1.0",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-33007",
+      "cwe": {
+        "id": "CWE-79",
+        "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "Room names are inserted into the page as HTML without encoding."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001"
+        ],
+        "fixed": [
+          "CSAFPID-0002"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Update the dashboard to version 5.1.0 or later.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 6.1,
+            "baseSeverity": "MEDIUM",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001"
+          ]
+        }
+      ]
+    }
+  ]
+}
