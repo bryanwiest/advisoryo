@@ -1,0 +1,149 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "The NetGate maintenance service accepted a hard-coded service password that was identical on all devices. Firmware 4.2.0 removes the account."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Example Networks GmbH",
+      "namespace": "https://example.com"
+    },
+    "title": "Hard-coded credentials in NetGate maintenance service",
+    "tracking": {
+      "current_release_date": "2026-10-02T09:00:00.000Z",
+      "id": "EXN-SA-2026-006",
+      "initial_release_date": "2026-10-02T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-10-02T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Example Networks GmbH",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "NetGate 200",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<4.2.0",
+                "product": {
+                  "name": "NetGate 200 <4.2.0",
+                  "product_id": "CSAFPID-0001"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "4.2.0",
+                "product": {
+                  "name": "NetGate 200 4.2.0",
+                  "product_id": "CSAFPID-0002"
+                }
+              }
+            ]
+          },
+          {
+            "category": "product_name",
+            "name": "NetGate 500",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<4.2.0",
+                "product": {
+                  "name": "NetGate 500 <4.2.0",
+                  "product_id": "CSAFPID-0003"
+                }
+              },
+              {
+                "category": "product_version",
+                "name": "4.2.0",
+                "product": {
+                  "name": "NetGate 500 4.2.0",
+                  "product_id": "CSAFPID-0004"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-35590",
+      "cwe": {
+        "id": "CWE-798",
+        "name": "Use of Hard-coded Credentials"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The maintenance service on TCP port 2222 contains a service account with a static password that cannot be changed by the operator."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001",
+          "CSAFPID-0003"
+        ],
+        "fixed": [
+          "CSAFPID-0002",
+          "CSAFPID-0004"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Update the firmware to version 4.2.0 or later.",
+          "product_ids": [
+            "CSAFPID-0001",
+            "CSAFPID-0003"
+          ]
+        },
+        {
+          "category": "workaround",
+          "details": "Block TCP port 2222 at the network perimeter.",
+          "product_ids": [
+            "CSAFPID-0001",
+            "CSAFPID-0003"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 8.1,
+            "baseSeverity": "HIGH",
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001",
+            "CSAFPID-0003"
+          ]
+        }
+      ]
+    }
+  ]
+}

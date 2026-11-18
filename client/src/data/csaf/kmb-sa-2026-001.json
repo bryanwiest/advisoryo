@@ -1,0 +1,111 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "The OPC UA server of PlantLink accepts sessions with the security policy None even if the operator disabled it. An attacker in the plant network can read and write process values. A fix is in progress."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Kessler Maschinenbau KG",
+      "namespace": "https://kessler.example"
+    },
+    "title": "Authentication bypass in PlantLink OPC UA server",
+    "tracking": {
+      "current_release_date": "2026-09-28T09:00:00.000Z",
+      "id": "KMB-SA-2026-001",
+      "initial_release_date": "2026-09-28T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-09-28T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Kessler Maschinenbau KG",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "PlantLink Gateway",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/<=3.4.2",
+                "product": {
+                  "name": "PlantLink Gateway <=3.4.2",
+                  "product_id": "CSAFPID-0001"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-34411",
+      "cwe": {
+        "id": "CWE-287",
+        "name": "Improper Authentication"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The configured list of allowed security policies is not enforced when a client creates a session."
+        }
+      ],
+      "product_status": {
+        "known_affected": [
+          "CSAFPID-0001"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "workaround",
+          "details": "Restrict access to TCP port 4840 to known engineering stations with a firewall.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        },
+        {
+          "category": "none_available",
+          "details": "A fixed version is planned for the end of November 2026.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 9.1,
+            "baseSeverity": "CRITICAL",
+            "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001"
+          ]
+        }
+      ]
+    }
+  ]
+}

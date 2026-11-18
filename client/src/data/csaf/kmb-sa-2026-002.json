@@ -1,0 +1,104 @@
+{
+  "document": {
+    "category": "csaf_security_advisory",
+    "csaf_version": "2.0",
+    "distribution": {
+      "tlp": {
+        "label": "WHITE"
+      }
+    },
+    "lang": "en",
+    "notes": [
+      {
+        "category": "summary",
+        "text": "Older MachineView HMI versions accepted any target URL after sign-in. Version 2.0 and later only redirect to pages of the HMI itself and are not affected."
+      }
+    ],
+    "publisher": {
+      "category": "vendor",
+      "name": "Kessler Maschinenbau KG",
+      "namespace": "https://kessler.example"
+    },
+    "title": "Open redirect in MachineView HMI login page",
+    "tracking": {
+      "current_release_date": "2026-10-09T09:00:00.000Z",
+      "id": "KMB-SA-2026-002",
+      "initial_release_date": "2026-10-09T09:00:00.000Z",
+      "revision_history": [
+        {
+          "date": "2026-10-09T09:00:00.000Z",
+          "number": "1",
+          "summary": "Initial release."
+        }
+      ],
+      "status": "final",
+      "version": "1"
+    }
+  },
+  "product_tree": {
+    "branches": [
+      {
+        "category": "vendor",
+        "name": "Kessler Maschinenbau KG",
+        "branches": [
+          {
+            "category": "product_name",
+            "name": "MachineView HMI",
+            "branches": [
+              {
+                "category": "product_version_range",
+                "name": "vers:generic/>=2.0",
+                "product": {
+                  "name": "MachineView HMI >=2.0",
+                  "product_id": "CSAFPID-0001"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "vulnerabilities": [
+    {
+      "cve": "CVE-2026-36650",
+      "cwe": {
+        "id": "CWE-601",
+        "name": "URL Redirection to Untrusted Site ('Open Redirect')"
+      },
+      "notes": [
+        {
+          "category": "description",
+          "text": "The next parameter of the login page was not restricted to relative paths in versions before 2.0, which are no longer supported."
+        }
+      ],
+      "product_status": {
+        "known_not_affected": [
+          "CSAFPID-0001"
+        ]
+      },
+      "remediations": [
+        {
+          "category": "vendor_fix",
+          "details": "Use MachineView HMI 2.0 or later. Versions before 2.0 have reached end of life.",
+          "product_ids": [
+            "CSAFPID-0001"
+          ]
+        }
+      ],
+      "scores": [
+        {
+          "cvss_v3": {
+            "baseScore": 3.1,
+            "baseSeverity": "LOW",
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          "products": [
+            "CSAFPID-0001"
+          ]
+        }
+      ]
+    }
+  ]
+}
